@@ -1,7 +1,7 @@
 import pandas as pd
 
 # import the fetch weather function
-from fetch_weather import fetch_all_weather
+from app.weather.fetch_weather import fetch_all_weather
 
 # -----------------------#
 ####### TRANSFORM #######
