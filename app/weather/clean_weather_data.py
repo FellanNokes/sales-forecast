@@ -26,10 +26,14 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     df.columns = df.columns.str.strip()
-    df.columns =df.columns.str.replace(" ", "").str.replace("_", "-")
+   
+    # do we need this?
+    #df.columns.str.replace(" ", "").str.replace("_", "-")
+    df.columns =df.columns.str.replace(" ", "")
 
     # Date
-    df["time"] = pd.to_datetime(df["time"], errors="coerce", utc=True)
+    df["time"] = pd.to_datetime(df["time"], errors="coerce")
+    #df["time"] = pd.to_datetime(df["time"], errors="coerce", utc=True)
 
     # Numeric columns
     for col in NUMERIC_COLS:
@@ -39,7 +43,7 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
     df["weather_code"] = df["weather_code"].astype("Int64")
 
     # change column names
-    df = df.rename(colums={
+    df = df.rename(columns={
         "time": "date",
         "temperature_2m_mean": "temperature_mean",
         "temperature_2m_max": "temperature_max",
@@ -61,7 +65,7 @@ def reject_invalid_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     # Definition of the rejected data values
     rejected_data = (
-        df["time"].isna() |
+        df["date"].isna() |
         df["temperature_mean"].isna() |
         df["rain_sum"].isna() |
         df["snowfall_sum"].isna() |
@@ -69,8 +73,8 @@ def reject_invalid_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
         (df["snowfall_sum"] < 0) |
         # check that tthe max temprature cant be lower than the min temperature
         (df["temperature_max"] < df["temperature_min"]) |
-        df["temperature_max"] < 60 |
-        df["temperature_min"] > -70
+        (df["temperature_max"] < 60) |
+        (df["temperature_min"] > -70)
     )
 
     # copy and seperate the rejected and valid data based on T/F
