@@ -75,6 +75,21 @@ def load_sales_with_coordinates() -> pd.DataFrame:
 
     return df
 
+def get_store_coordinates() -> dict[str, tuple[float, float]]:
+    """
+    Returns a dict mapping full location strings to (latitude, longitude) tuples.
+    Used by the weather API to fetch historical weather per store location.
+
+    Returns:
+        e.g. {"Lower Manhattan, New York, United States": (40.7135, -74.0054), ...}
+    """
+    df = load_sales_with_coordinates()
+    unique = df[["full_location", "latitude", "longitude"]].drop_duplicates("full_location")
+    return {
+        row.full_location: (row.latitude, row.longitude)
+        for row in unique.itertuples()
+    }
+
 
 if __name__ == "__main__":
     # Quick test — geocode a couple of locations manually
@@ -91,4 +106,4 @@ if __name__ == "__main__":
 
     print("Testing load_sales_with_coordinates():")
     df = load_sales_with_coordinates()
-    print(df[["store_location", "latitude", "longitude", "transaction_date"]].head(10))
+    print(df[["store_location", "latitude", "longitude", "transaction_date"]].head(50))

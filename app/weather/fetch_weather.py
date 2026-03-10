@@ -1,6 +1,7 @@
 from pathlib import Path
 import requests
 import pandas as pd
+from app.weather.coordinates import get_store_coordinates
 
 # updatera after talk with felix
 # from app.ingest_sales_data.coordinates import get_store_coordinates
@@ -23,7 +24,7 @@ DAILY_WEATHER = [
 ]
 
 def fetch_all_weather() -> pd.DataFrame:
-    coordinates = #get_store_coordinates()
+    coordinates = get_store_coordinates()
     locations = list(coordinates.keys())
     latitudes = [coordinates[loc][0] for loc in locations]
     longitudes = [coordinates[loc][1] for loc in locations]
