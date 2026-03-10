@@ -9,7 +9,7 @@ df = pd.read_csv(file_path, sep="|")
 print(df.head())
 
 
-# terminal: python app/ingest_sales_data/ingest_data.py
+# terminal: python app/sales/ingest_data.py
 
 
 # validate data
