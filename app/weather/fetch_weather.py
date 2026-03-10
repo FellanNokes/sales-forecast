@@ -15,12 +15,12 @@ END_DATE = "2023-06-30"
 
 DAILY_WEATHER = [
     "weather_code",
-    "temperature_2m_mean",
-    "temperature_2m_max",
-    "temperature_2m_min",
+    "temperature_mean",
+    "temperature_max",
+    "temperature_min",
     "rain_sum",
     "snowfall_sum",
-    "wind_speed_10m_max",
+    "wind_speed_max",
 ]
 
 def fetch_all_weather() -> pd.DataFrame:
