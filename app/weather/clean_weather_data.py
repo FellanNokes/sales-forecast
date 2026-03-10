@@ -1,7 +1,11 @@
 import pandas as pd
+from pathlib import Path
 
 # import the fetch weather function
 from app.weather.fetch_weather import fetch_all_weather
+
+CLEAN_DATA_PATH = Path(__file__).resolve().parents[2] / "data" / "cleaned" / "weather_clean.csv"
+REJECTED_DATA_PATH = Path(__file__).resolve().parents[2] / "data" / "rejected" / "weather_rejected.csv"
 
 # -----------------------#
 ####### TRANSFORM #######
@@ -102,4 +106,7 @@ if __name__ == "__main__":
     df = fetch_all_weather()
     transformed_df = transform_data(df)
     clean_df, rejected_df = reject_invalid_data(transformed_df)
+    clean_df.to_csv(CLEAN_DATA_PATH, index=False)
+    rejected_df.to_csv(REJECTED_DATA_PATH, index=False)
+    print(f"\nSaved {len(df)} rows to {CLEAN_DATA_PATH}")
     print(clean_df.head(50))
