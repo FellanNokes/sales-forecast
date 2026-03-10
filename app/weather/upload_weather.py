@@ -1,12 +1,3 @@
-""" update the column names to match supabase
-temperature_2m_mean -	temperature_mean
-temperature_2m_max	- temperature_max
-temperature_2m_min -	temperature_min
-wind_speed_10m_max -	wind_speed_max
-(missing)	timezone
-
-"""
-
 import os
 from pathlib import Path
 import pandas as pd
@@ -14,8 +5,7 @@ from supabase import create_client, Client
 from dotenv import load_dotenv
 
 load_dotenv()
-# create folder for clean data
-CLEAN_DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "clean" / "weather_clean.csv"
+CLEAN_DATA_PATH = Path(__file__).resolve().parents[2] / "data" / "cleaned" / "weather_clean.csv"
 
 SUPABASE_URL = os.getenv("SUPABASE_URL", "https://your-project.supabase.co")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY", "your-anon-key")
