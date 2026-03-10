@@ -10,12 +10,12 @@ from fetch_weather import fetch_all_weather
 # numeric columns
 NUMERIC_COLS = [
     "weather_code",
-    "temperature_2m_mean",
-    "temperature_2m_max",
-    "temperature_2m_min",
+    "temperature_mean",
+    "temperature_max",
+    "temperature_min",
     "rain_sum",
     "snowfall_sum",
-    "wind_speed_10m_max",
+    "wind_speed_max",
 ]
 
 # Function to transform data from weather API
@@ -53,15 +53,15 @@ def reject_invalid_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     # Definition of the rejected data values
     rejected_data = (
         df["time"].isna() |
-        df["temperature_2m_mean"].isna() |
+        df["temperature_mean"].isna() |
         df["rain_sum"].isna() |
         df["snowfall_sum"].isna() |
         (df["rain_sum"] < 0) |
         (df["snowfall_sum"] < 0) |
         # check that tthe max temprature cant be lower than the min temperature
-        (df["temperature_2m_max"] < df["temperature_2m_min"]) |
-        df["temperature_2m_max"] < 60 |
-        df["temperature_2m_min"] > -70
+        (df["temperature_max"] < df["temperature_min"]) |
+        df["temperature_max"] < 60 |
+        df["temperature_min"] > -70
     )
 
     # copy and seperate the rejected and valid data based on T/F
