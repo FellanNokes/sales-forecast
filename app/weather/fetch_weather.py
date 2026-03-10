@@ -3,10 +3,7 @@ import requests
 import pandas as pd
 from app.weather.coordinates import get_store_coordinates
 
-# updatera after talk with felix
-# from app.ingest_sales_data.coordinates import get_store_coordinates
-
-LOAD_DATA_PATH = Path(__file__).resolve().parents[1] / "data" / "raw" / "weather_raw.csv"
+LOAD_DATA_PATH = Path(__file__).resolve().parents[2] / "data" / "raw" / "weather_raw.csv"
 
 # DATE RANGE - Load historical data 
 
@@ -15,12 +12,12 @@ END_DATE = "2023-06-30"
 
 DAILY_WEATHER = [
     "weather_code",
-    "temperature_mean",
-    "temperature_max",
-    "temperature_min",
+    "temperature_2m_mean",
+    "temperature_2m_max",
+    "temperature_2m_min",
     "rain_sum",
     "snowfall_sum",
-    "wind_speed_max",
+    "wind_speed_10m_max",
 ]
 
 def fetch_all_weather() -> pd.DataFrame:
@@ -42,6 +39,8 @@ def fetch_all_weather() -> pd.DataFrame:
     )
   
     results = response.json()  # list of dicts, one per location
+    if isinstance(results, dict): #  checks if results is a dictionary (single location response)
+        results = [results] # 2+ locations -> returns a list of dicts.
 
     all_dfs = [] # loops through all 3 locations and creates a df for each one
     
@@ -61,4 +60,4 @@ if __name__ == "__main__":
     df = fetch_all_weather()
     df.to_csv(LOAD_DATA_PATH, index=False)
     print(f"\nSaved {len(df)} rows to {LOAD_DATA_PATH}")
-    print(df.head())
+    print(df.head(50))
