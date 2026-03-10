@@ -73,8 +73,8 @@ def reject_invalid_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
         (df["snowfall_sum"] < 0) |
         # check that tthe max temprature cant be lower than the min temperature
         (df["temperature_max"] < df["temperature_min"]) |
-        (df["temperature_max"] < 60) |
-        (df["temperature_min"] > -70)
+        (df["temperature_max"] > 60) |
+        (df["temperature_min"] < -70)
     )
 
     # copy and seperate the rejected and valid data based on T/F
@@ -83,7 +83,7 @@ def reject_invalid_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     # Identify duplicates in the data
     duplicates = df_valid.duplicated(
-        subset=["store_location", "time"], keep="first")
+        subset=["store_location", "date"], keep="first")
 
     # Add duplicates to df_refejted
     df_rejected = pd.concat([df_rejected, df_valid[duplicates]])
