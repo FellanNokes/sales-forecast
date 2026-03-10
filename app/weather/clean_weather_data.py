@@ -10,12 +10,12 @@ from fetch_weather import fetch_all_weather
 # numeric columns
 NUMERIC_COLS = [
     "weather_code",
-    "temperature_mean",
-    "temperature_max",
-    "temperature_min",
+    "temperature_2m_mean",
+    "temperature_2m_max",
+    "temperature_2m_min",
     "rain_sum",
     "snowfall_sum",
-    "wind_speed_max",
+    "wind_speed_10m_max",
 ]
 
 # Function to transform data from weather API
@@ -26,7 +26,7 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     df.columns = df.columns.str.strip()
-    df.columns.str.replace(" ", "").str.replace("_", "-")
+    df.columns =df.columns.str.replace(" ", "").str.replace("_", "-")
 
     # Date
     df["time"] = pd.to_datetime(df["time"], errors="coerce", utc=True)
@@ -37,6 +37,15 @@ def transform_data(df: pd.DataFrame) -> pd.DataFrame:
 
     # WeatherCode - check that it is an integer and convert it
     df["weather_code"] = df["weather_code"].astype("Int64")
+
+    # change column names
+    df = df.rename(colums={
+        "time": "date",
+        "temperature_2m_mean": "temperature_mean",
+        "temperature_2m_max": "temperature_max",
+        "temperature_2m_min": "temperature_min",
+        "wind_speed_10m_max": "wind_speed_max",
+    })
 
     # return the transformed DataFrame
     return df
@@ -70,7 +79,7 @@ def reject_invalid_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
     # Identify duplicates in the data
     duplicates = df_valid.duplicated(
-        subset=["store-location", "time"], keep="first")
+        subset=["store_location", "time"], keep="first")
 
     # Add duplicates to df_refejted
     df_rejected = pd.concat([df_rejected, df_valid[duplicates]])
@@ -89,4 +98,4 @@ if __name__ == "__main__":
     df = fetch_all_weather()
     transformed_df = transform_data(df)
     clean_df, rejected_df = reject_invalid_data(transformed_df)
-    print(clean_df.head())
+    print(clean_df.head(50))
