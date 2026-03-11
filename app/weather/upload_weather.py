@@ -30,7 +30,13 @@ def upload_weather(df: pd.DataFrame, client: Client) -> None:
 
 
 if __name__ == "__main__":
-    df = pd.read_csv(CLEAN_DATA_PATH)
-    client = get_supabase_client()
-    upload_weather(df, client)
-    print(f"\nDone. {len(df)} rows uploaded to '{TABLE_NAME}'.")
+    try: 
+        df = pd.read_csv(CLEAN_DATA_PATH)
+        client = get_supabase_client()
+        upload_weather(df, client)
+        print(f"\nDone. {len(df)} rows uploaded to '{TABLE_NAME}'.")
+    except FileNotFoundError:
+        print(f"Error: CSV not found at {CLEAN_DATA_PATH}")
+    except Exception as e:
+        print(f"Upload failed: {e}")
+        raise
