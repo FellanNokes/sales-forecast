@@ -20,8 +20,6 @@ def categorize_temperature(temp: float) -> str:
     else:
         return "warm"
     
-
-
     
 
 # WEATHER CODE LABELS 
@@ -57,3 +55,47 @@ WEATHER_CODE_MAP = {
     96: "thunderstorm",
     99: "thunderstorm",
 }
+
+
+
+# CREATE WEATHER FEATURE TABLE
+# -----------------------------
+
+def add_weather_fetures(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+
+    # Temperature category
+    df["weather_condition"] = df["temperature_mean"].apply(categorize_temperature)
+
+    # Weather condition
+    df["weather_condition"] = df["weather_code"].map(WEATHER_CODE_MAP).fillna("unknown")
+
+
+    # Keep columns needed for features table
+    df_features = df[[
+        "store_location",
+        "date",
+        "weather_code",
+        "weather_condition",
+        "temperature_mean",
+        "temp_category",
+        "rain_sum",
+        "snowfall_sum",
+    ]]
+ 
+    return df_features  
+
+
+# MAIN           
+# -----
+ 
+if __name__ == "__main__":
+    df = pd.read_csv(CLEAN_DATA_PATH)
+    df_features = add_weather_features(df)
+    df_features.to_csv(FEATURES_DATA_PATH, index=False)
+    print(f"Saved {len(df_features)} rows to {FEATURES_DATA_PATH}")
+    print(df_features.head(10))
+    print("\nValue counts — temp_category:")
+    print(df_features["temp_category"].value_counts())
+    print("\nValue counts — weather_condition:")
+    print(df_features["weather_condition"].value_counts())
