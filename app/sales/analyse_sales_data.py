@@ -45,7 +45,7 @@ def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
         df["transaction_qty"]
 
     total_revenue_store = (
-        df.groupby(["store_id", "store_location"])[
+        df.groupby(["store_id", "store_location", "transaction_date"])[
             "revenue_per_day"].sum().reset_index()
     )
     return total_revenue_store
