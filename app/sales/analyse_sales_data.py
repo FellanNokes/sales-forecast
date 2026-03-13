@@ -4,6 +4,10 @@ import pandas as pd
 from dotenv import load_dotenv
 import os
 
+# ----------------------------#
+# SUPABASE - FETCH / UPLOAD
+# ----------------------------#
+
 # Setup the Supabase connection
 load_dotenv()
 supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
@@ -35,7 +39,35 @@ def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
     # Create dataframe with fetched data
     df = pd.DataFrame(fetched_data)
 
+    # Add product_grop
+    df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
+
     return df
+
+
+# Function for uploading to Supabase
+def upload_sales_analytics(supabase: Client, df: pd.DataFrame, table_name: str, batch_size: int = 500):
+
+    df = df.copy()
+
+    records = df.to_dict(orient="records")
+    total = len(records)
+    uploaded = 0
+
+    for i in range(0, total, batch_size):
+        batch = records[i: i + batch_size]
+        try:
+            supabase.table(table_name).upsert(batch).execute()
+            uploaded += len(batch)
+            print(f"  [{table_name}] {uploaded}/{total} rows uploaded")
+        except Exception as e:
+            print(f"  [{table_name}] ERROR on batch {i}-{i + batch_size}: {e}")
+
+    print(f"  [{table_name}] done\n")
+
+# ----------------------------#
+# SALES ANALYTICS
+# ----------------------------#
 
 
 # Map for the different categories
@@ -76,13 +108,13 @@ PRODUCT_CATEGORY_MAP = {
 }
 
 
-# Add product category column
-def add_prod_cat_col(df: pd.DataFrame):
+# # Add product category column
+# def add_prod_cat_col(df: pd.DataFrame):
 
-    df = df.copy()
-    df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
+#     df = df.copy()
+#     df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
 
-    return df
+#     return df
 
 
 # Calculate the total revenue per day based on the store location.
@@ -121,9 +153,6 @@ def top5_products(df: pd.DataFrame):
         .reset_index(drop=True)
 
     )
-    # set index to 1-5 and add name for index
-    top5.index += 1
-    top5.index.name = "Ranking"
 
     return top5
 
@@ -224,3 +253,34 @@ def least_popular_products(df: pd.DataFrame) -> pd.DataFrame:
     )
 
     return least_prod_sales
+
+
+# ----------------------------#
+# MAIN
+# ----------------------------#
+if __name__ == "__main__":
+    SOURCE_TABLE = "historic_sales"
+
+    print("Fetching data...")
+    df = fetch_all_sales_data(supabase, SOURCE_TABLE)
+    print(f"  {len(df):,} rows loaded.\n")
+
+    print("Computing and uploading...\n")
+
+    # total_revenue returnerar en dict — flatten till en DataFrame
+    store_flat = pd.concat(total_revenue(df).values(), ignore_index=True)
+
+    upload_sales_analytics(supabase, store_flat,
+                           "analytics_revenue_by_store")
+    upload_sales_analytics(supabase, top5_products(
+        df),           "analytics_top5_products")
+    upload_sales_analytics(supabase, top5_products_month(
+        df),     "analytics_top5_products_month")
+    upload_sales_analytics(supabase, sales_revenue_per_month(
+        df), "analytics_revenue_per_month")
+    upload_sales_analytics(supabase, top_day_revenue_moth(
+        df),    "analytics_top_day_per_month")
+    upload_sales_analytics(supabase, least_popular_products(
+        df),  "analytics_least5_popular")
+
+    print("All done!")
