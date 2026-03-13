@@ -1,79 +1,31 @@
-
-from supabase import create_client, Client
 import pandas as pd
-from dotenv import load_dotenv
-import os
+from app.utility.supabase_functions import fetch_table, upload_dataframe
 
 # ----------------------------#
 # SUPABASE - FETCH / UPLOAD
 # ----------------------------#
 
-# Setup the Supabase connection
-load_dotenv()
-supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
+def load_sales_data(table_name: str) -> pd.DataFrame:
+    df = fetch_table(table_name)
 
-# Fetch all cleaned sales data from supabase
-def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
-
-    fetched_data = []
-    # Batch size to fetch (max limit on supabase is 1000)
-    batch_size = 1000
-    start = 0
-
-    # While there is data left to fetch - do it
-    while True:
-        response = supabase.table(table_name).select(
-            "*").range(start, start + batch_size - 1).execute()
-
-        # if there is no data left to fetch - break
-        if not response.data:
-            break
-
-        # add the data to list
-        fetched_data.extend(response.data)
-
-        # increase start by batch_size
-        start += batch_size
-
-    # Create dataframe with fetched data
-    df = pd.DataFrame(fetched_data)
-
-    # Ensure correct dtypes
     df["transaction_date"] = pd.to_datetime(df["transaction_date"])
     df["unit_price"] = pd.to_numeric(df["unit_price"], errors="coerce")
     df["transaction_qty"] = pd.to_numeric(
         df["transaction_qty"], errors="coerce")
-
-    # Add product_grop
     df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
 
     return df
 
 
 # Function for uploading to Supabase
-def upload_sales_analytics(supabase: Client, df: pd.DataFrame, table_name: str, batch_size: int = 500):
-
+def upload_analytics(df: pd.DataFrame, table_name: str) -> None:
     df = df.copy()
 
-    # Convert transaction_date to string at upload
     if "transaction_date" in df.columns:
         df["transaction_date"] = df["transaction_date"].astype(str)
 
-    records = df.to_dict(orient="records")
-    total = len(records)
-    uploaded = 0
-
-    for i in range(0, total, batch_size):
-        batch = records[i: i + batch_size]
-        try:
-            supabase.table(table_name).upsert(batch).execute()
-            uploaded += len(batch)
-            print(f"  [{table_name}] {uploaded}/{total} rows uploaded")
-        except Exception as e:
-            print(f"  [{table_name}] ERROR on batch {i}-{i + batch_size}: {e}")
-
-    print(f"  [{table_name}] done\n")
+    upload_dataframe(df, table_name)
 
 # ----------------------------#
 # SALES ANALYTICS
@@ -118,35 +70,19 @@ PRODUCT_CATEGORY_MAP = {
 }
 
 
-# # Add product category column
-# def add_prod_cat_col(df: pd.DataFrame):
-
-#     df = df.copy()
-#     df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
-
-#     return df
-
-
 # Calculate the total revenue per day based on the store location.
-def total_revenue(df: pd.DataFrame):
+def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["revenue_per_day"] = df["unit_price"] * df["transaction_qty"]
 
-    total_revenue_store = (
+    total_rev = (
         df.groupby(["store_id", "store_location", "transaction_date"])[
             "revenue_per_day"]
         .sum()
         .reset_index()
     )
 
-    # Create a dictonary with DF per store
-    store_dfs = {
-        store: total_revenue_store[total_revenue_store["store_location"] == store].reset_index(
-            drop=True)
-        for store in total_revenue_store["store_location"].unique()
-    }
-
-    return store_dfs
+    return total_rev
 
 
 # Top 5 products total period
@@ -274,25 +210,25 @@ if __name__ == "__main__":
     SOURCE_TABLE = "historic_sales"
 
     print("Fetching data...")
-    df = fetch_all_sales_data(supabase, SOURCE_TABLE)
+    df = load_sales_data(SOURCE_TABLE)
     print(f"  {len(df):,} rows loaded.\n")
+
+    print("Adding product_group to historic_sales...")
+    upload_analytics(df, SOURCE_TABLE)
 
     print("Computing and uploading...\n")
 
-    # total_revenue returnerar en dict — flatten till en DataFrame
-    store_flat = pd.concat(total_revenue(df).values(), ignore_index=True)
+    tasks = [
+        (total_revenue(df),           "analytics_revenue_by_store"),
+        (top5_products(df),           "analytics_top5_products"),
+        (top5_products_month(df),     "analytics_top5_products_month"),
+        (sales_revenue_per_month(df), "analytics_revenue_per_month"),
+        (top_day_revenue_moth(df),    "analytics_top_day_per_month"),
+        (least_popular_products(df),  "analytics_least5_popular"),
+    ]
 
-    upload_sales_analytics(supabase, store_flat,
-                           "analytics_revenue_by_store")
-    upload_sales_analytics(supabase, top5_products(
-        df),           "analytics_top5_products")
-    upload_sales_analytics(supabase, top5_products_month(
-        df),     "analytics_top5_products_month")
-    upload_sales_analytics(supabase, sales_revenue_per_month(
-        df), "analytics_revenue_per_month")
-    upload_sales_analytics(supabase, top_day_revenue_moth(
-        df),    "analytics_top_day_per_month")
-    upload_sales_analytics(supabase, least_popular_products(
-        df),  "analytics_least5_popular")
+    for result_df, table_name in tasks:
+        print(f"Uploading → {table_name}")
+        upload_analytics(result_df, table_name)
 
     print("All done!")
