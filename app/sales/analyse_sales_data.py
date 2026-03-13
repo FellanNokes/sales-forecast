@@ -40,19 +40,32 @@ def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
 
 
 # Calculate the total revenue per day based on the store location
-def total_revenue(df: pd.DataFrame) -> pd.DataFrame:
-    df["revenue_per_day"] = df["unit_price"] * \
-        df["transaction_qty"]
+def total_revenue(df: pd.DataFrame):
+    df["revenue_per_day"] = df["unit_price"] * df["transaction_qty"]
 
     total_revenue_store = (
         df.groupby(["store_id", "store_location", "transaction_date"])[
-            "revenue_per_day"].sum().reset_index()
+            "revenue_per_day"]
+        .sum()
+        .reset_index()
     )
-    return total_revenue_store
+
+    # Create a dictonary with DF per store
+    store_dfs = {
+        store: total_revenue_store[total_revenue_store["store_location"] == store].reset_index(
+            drop=True)
+        for store in total_revenue_store["store_location"].unique()
+    }
+
+    # Print each store
+    for store, store_df in store_dfs.items():
+        print(f"\n--- {store} ---")
+        print(store_df.head())
+
+    return store_dfs
+
 
 # Top 5 products total period
-
-
 def top5_products(df: pd.DataFrame):
 
     # Top 5 products every month
