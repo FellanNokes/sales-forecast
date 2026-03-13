@@ -8,9 +8,8 @@ import os
 load_dotenv()
 supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
+
 # Fetch all cleaned sales data from supabase
-
-
 def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
 
     fetched_data = []
@@ -39,7 +38,54 @@ def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
     return df
 
 
-# Calculate the total revenue per day based on the store location
+# Map for the different categories
+PRODUCT_CATEGORY_MAP = {
+    # Drinks
+    "Brewed Chai Tea": "Drinks",
+    "Brewed Green Tea": "Drinks",
+    "Brewed Black Tea": "Drinks",
+    "Brewed Herbal Tea": "Drinks",
+    "Premium Brewed Coffee": "Drinks",
+    "Organic Brewed Coffee": "Drinks",
+    "Gourmet Brewed Coffee": "Drinks",
+    "Barista Espresso": "Drinks",
+    "Drip Coffee": "Drinks",
+    "Organic Chocolate": "Drinks",
+    "Drinking Chocolate": "Drinks",
+    "Hot Chocolate": "Drinks",
+    "Regular Syrup": "Drinks",
+    "Sugar Free Syrup": "Drinks",
+    # Bakery
+    "Biscotti": "Bakery",
+    "Pastry": "Bakery",
+    "Scone": "Bakery",
+    # Branded
+    "Clothing": "Branded",
+    "Housewares": "Branded",
+    # Packaged
+    "Espresso Beans": "Packaged",
+    "Gourmet Beans": "Packaged",
+    "House Blend Beans": "Packaged",
+    "Organic Beans": "Packaged",
+    "Premium Beans": "Packaged",
+    "Green Beans": "Packaged",
+    "Black Tea": "Packaged",
+    "Herbal Tea": "Packaged",
+    "Green Tea": "Packaged",
+    "Chai Tea": "Packaged",
+}
+
+
+# Add product category column
+def add_prod_cat_col(df: pd.DataFrame):
+
+    df = df.copy()
+    df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
+
+    return df
+
+
+# Calculate the total revenue per day based on the store location.
 def total_revenue(df: pd.DataFrame):
     df["revenue_per_day"] = df["unit_price"] * df["transaction_qty"]
 
@@ -57,35 +103,124 @@ def total_revenue(df: pd.DataFrame):
         for store in total_revenue_store["store_location"].unique()
     }
 
-    # Print each store
-    for store, store_df in store_dfs.items():
-        print(f"\n--- {store} ---")
-        print(store_df.head())
-
     return store_dfs
 
 
 # Top 5 products total period
 def top5_products(df: pd.DataFrame):
+    df = df.copy()
 
-    # Top 5 products every month
+    df["revenue"] = df["unit_price"] * df["transaction_qty"]
+
+    top5 = (
+        df.groupby("product_type")["revenue"]
+        .sum()
+        .reset_index()
+        .sort_values("revenue", ascending=False)
+        .head(5)
+        .reset_index(drop=True)
+
+    )
+    # set index to 1-5 and add name for index
+    top5.index += 1
+    top5.index.name = "Ranking"
+
+    return top5
 
 
+# Top 5 products every month
 def top5_products_month(df: pd.DataFrame) -> pd.DataFrame:
 
-    # Sales revenue per month
+    df = df.copy()
+
+    # Convert the transaction date to months
+    df['transaction_date'] = pd.to_datetime(df['transaction_date'])
+    df["month_num"] = df['transaction_date'].dt.month
+    # Fix the month to text (jan, feb)
+    df['month'] = df['transaction_date'].dt.strftime('%B')
+
+    # Revenue per day
+    df["revenue_per_day"] = df["unit_price"] * df["transaction_qty"]
+
+    # Group by to achieve the rev_per_day and sort by the 5 largest each month per store
+    top5_prod_store = (
+        df.groupby(['store_id', 'store_location', 'month',
+                   'month_num', 'product_type'])['revenue_per_day']
+        .sum()
+        .reset_index()
+        .groupby(['store_id', 'month_num'], group_keys=False)
+        .apply(lambda x: x.nlargest(5, 'revenue_per_day'))
+        .sort_values(['store_id', 'month_num'])
+        .drop(columns=['month_num'])
+        .reset_index(drop=True)
+    )
+
+    return top5_prod_store
 
 
-def sales_revenue_per_month(df: pd.DataFrame):
+# Sales revenue per month
+def sales_revenue_per_month(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
 
-    # Highest daily rev per month
+    df["month_num"] = df["transaction_date"].dt.month
+    df["month"] = df["transaction_date"].dt.strftime("%B")
+    df["revenue"] = df["unit_price"] * df["transaction_qty"]
+
+    sales_monthly = (
+        df.groupby(["month_num", "month", "store_location"])["revenue"]
+        .sum()
+        .reset_index()
+        .sort_values("month_num")
+        .drop(columns=["month_num"])
+        .reset_index(drop=True)
+    )
+
+    return sales_monthly
 
 
-def top_day_revenue_moth(df: pd.DataFrame):
+# Highest daily rev per month
+def top_day_revenue_moth(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+
+    df["month_num"] = df["transaction_date"].dt.month
+    df["month"] = df["transaction_date"].dt.strftime("%B")
+    df["revenue"] = df["unit_price"] * df["transaction_qty"]
+
+    sales = (
+        df.groupby(["month_num", "month", "store_location",
+                   "transaction_date"])["revenue"]
+        .sum()
+        .reset_index()
+    )
+
+    daily_sales = (
+        sales.sort_values("revenue", ascending=False)
+        .groupby(["month_num", "store_location"], as_index=False)
+        .first()
+        .sort_values(["store_location", "month_num"])
+        .drop(columns=["month_num"])
+        .reset_index(drop=True)
+    )
+
+    return daily_sales
 
 
-def total_revenue_per_day(df: pd.DataFrame):
+# Least popular products total in each store location
+def least_popular_products(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
 
-    # Add extra column for additional product category(Drinks, Food, ...)
+    df["month_num"] = df["transaction_date"].dt.month
+    df["month"] = df["transaction_date"].dt.strftime("%B")
+    df["least_revenue"] = df["unit_price"] * df["transaction_qty"]
 
-    # Least popular products total
+    least_prod_sales = (
+        df.groupby(["store_location", "product_type"])["least_revenue"]
+        .sum()
+        .reset_index()
+        .sort_values(["store_location", "least_revenue"], ascending=True)
+        .groupby("store_location", group_keys=False)
+        .head(5)
+        .reset_index(drop=True)
+    )
+
+    return least_prod_sales
