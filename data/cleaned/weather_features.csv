@@ -1,0 +1,544 @@
+store_location,date,weather_code,weather_condition,temperature_mean,temp_category,rain_sum,snowfall_sum
+"Lower Manhattan, United States",2023-01-01,55,drizzle,9.0,mild,2.1,0.0
+"Lower Manhattan, United States",2023-01-02,51,drizzle,7.9,cold,0.5,0.0
+"Lower Manhattan, United States",2023-01-03,63,rain,9.5,mild,9.5,0.0
+"Lower Manhattan, United States",2023-01-04,53,drizzle,13.1,mild,2.3,0.0
+"Lower Manhattan, United States",2023-01-05,3,cloudy,10.0,mild,0.0,0.0
+"Lower Manhattan, United States",2023-01-06,61,rain,6.2,cold,9.6,0.0
+"Lower Manhattan, United States",2023-01-07,3,cloudy,3.7,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-08,3,cloudy,1.4,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-09,71,snow,3.1,cold,1.2,0.21
+"Lower Manhattan, United States",2023-01-10,3,cloudy,2.7,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-11,3,cloudy,1.0,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-12,63,rain,5.3,cold,11.9,0.0
+"Lower Manhattan, United States",2023-01-13,51,drizzle,9.3,mild,1.6,0.0
+"Lower Manhattan, United States",2023-01-14,3,cloudy,1.0,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-15,3,cloudy,0.7,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-16,1,clear,1.6,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-17,53,drizzle,2.5,cold,1.4,0.0
+"Lower Manhattan, United States",2023-01-18,53,drizzle,6.7,cold,1.7,0.0
+"Lower Manhattan, United States",2023-01-19,63,rain,4.0,cold,23.5,0.0
+"Lower Manhattan, United States",2023-01-20,53,drizzle,5.4,cold,0.6,0.0
+"Lower Manhattan, United States",2023-01-21,51,drizzle,2.8,cold,0.2,0.0
+"Lower Manhattan, United States",2023-01-22,61,rain,1.4,cold,5.4,0.0
+"Lower Manhattan, United States",2023-01-23,73,snow,2.5,cold,16.5,0.28
+"Lower Manhattan, United States",2023-01-24,3,cloudy,2.3,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-25,73,snow,2.2,cold,19.4,0.42
+"Lower Manhattan, United States",2023-01-26,63,rain,7.5,cold,14.5,0.0
+"Lower Manhattan, United States",2023-01-27,3,cloudy,2.2,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-28,3,cloudy,4.4,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-29,3,cloudy,5.6,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-30,3,cloudy,6.1,cold,0.0,0.0
+"Lower Manhattan, United States",2023-01-31,73,snow,3.4,cold,1.9,0.42
+"Lower Manhattan, United States",2023-02-01,73,snow,-0.6,freezing,0.0,1.12
+"Lower Manhattan, United States",2023-02-02,3,cloudy,-0.2,freezing,0.0,0.0
+"Lower Manhattan, United States",2023-02-03,3,cloudy,-4.4,freezing,0.0,0.0
+"Lower Manhattan, United States",2023-02-04,3,cloudy,-9.5,freezing,0.0,0.0
+"Lower Manhattan, United States",2023-02-05,3,cloudy,1.4,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-06,3,cloudy,4.2,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-07,71,snow,0.4,cold,2.4,0.14
+"Lower Manhattan, United States",2023-02-08,53,drizzle,4.8,cold,0.7,0.0
+"Lower Manhattan, United States",2023-02-09,3,cloudy,4.7,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-10,3,cloudy,11.2,mild,0.0,0.0
+"Lower Manhattan, United States",2023-02-11,3,cloudy,3.7,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-12,73,snow,2.8,cold,0.2,0.42
+"Lower Manhattan, United States",2023-02-13,73,snow,6.6,cold,1.3,0.35
+"Lower Manhattan, United States",2023-02-14,3,cloudy,6.3,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-15,3,cloudy,10.2,mild,0.0,0.0
+"Lower Manhattan, United States",2023-02-16,61,rain,12.7,mild,2.9,0.0
+"Lower Manhattan, United States",2023-02-17,61,rain,9.7,mild,8.1,0.0
+"Lower Manhattan, United States",2023-02-18,2,cloudy,0.9,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-19,3,cloudy,4.0,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-20,3,cloudy,9.0,mild,0.0,0.0
+"Lower Manhattan, United States",2023-02-21,73,snow,4.4,cold,6.5,0.42
+"Lower Manhattan, United States",2023-02-22,73,snow,2.5,cold,4.0,0.28
+"Lower Manhattan, United States",2023-02-23,51,drizzle,4.6,cold,0.6,0.0
+"Lower Manhattan, United States",2023-02-24,3,cloudy,3.9,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-25,71,snow,-3.0,freezing,0.0,0.49
+"Lower Manhattan, United States",2023-02-26,3,cloudy,2.2,cold,0.0,0.0
+"Lower Manhattan, United States",2023-02-27,75,snow,1.6,cold,0.1,2.59
+"Lower Manhattan, United States",2023-02-28,75,snow,1.0,cold,2.7,7.28
+"Lower Manhattan, United States",2023-03-01,75,snow,1.9,cold,0.9,1.75
+"Lower Manhattan, United States",2023-03-02,53,drizzle,6.8,cold,1.5,0.0
+"Lower Manhattan, United States",2023-03-03,61,rain,3.3,cold,2.8,0.0
+"Lower Manhattan, United States",2023-03-04,65,rain,5.4,cold,41.8,0.0
+"Lower Manhattan, United States",2023-03-05,3,cloudy,5.5,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-06,3,cloudy,5.9,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-07,73,snow,3.7,cold,0.2,1.75
+"Lower Manhattan, United States",2023-03-08,3,cloudy,2.9,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-09,3,cloudy,4.3,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-10,63,rain,3.3,cold,7.3,0.0
+"Lower Manhattan, United States",2023-03-11,75,snow,4.2,cold,11.2,1.33
+"Lower Manhattan, United States",2023-03-12,3,cloudy,3.4,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-13,61,rain,4.7,cold,16.7,0.0
+"Lower Manhattan, United States",2023-03-14,73,snow,2.1,cold,8.0,2.94
+"Lower Manhattan, United States",2023-03-15,3,cloudy,3.3,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-16,3,cloudy,5.5,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-17,3,cloudy,8.5,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-18,51,drizzle,7.6,cold,0.7,0.0
+"Lower Manhattan, United States",2023-03-19,3,cloudy,1.2,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-20,0,clear,3.2,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-21,3,cloudy,7.4,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-22,3,cloudy,7.8,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-23,61,rain,10.7,mild,2.8,0.0
+"Lower Manhattan, United States",2023-03-24,51,drizzle,8.7,cold,0.2,0.0
+"Lower Manhattan, United States",2023-03-25,63,rain,5.6,cold,11.5,0.0
+"Lower Manhattan, United States",2023-03-26,3,cloudy,9.4,mild,0.0,0.0
+"Lower Manhattan, United States",2023-03-27,61,rain,7.8,cold,2.6,0.0
+"Lower Manhattan, United States",2023-03-28,51,drizzle,6.6,cold,0.6,0.0
+"Lower Manhattan, United States",2023-03-29,3,cloudy,5.3,cold,0.0,0.0
+"Lower Manhattan, United States",2023-03-30,51,drizzle,3.3,cold,0.1,0.0
+"Lower Manhattan, United States",2023-03-31,3,cloudy,6.0,cold,0.0,0.0
+"Lower Manhattan, United States",2023-04-01,63,rain,14.9,mild,10.1,0.0
+"Lower Manhattan, United States",2023-04-02,3,cloudy,6.9,cold,0.0,0.0
+"Lower Manhattan, United States",2023-04-03,3,cloudy,7.1,cold,0.0,0.0
+"Lower Manhattan, United States",2023-04-04,3,cloudy,13.3,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-05,51,drizzle,11.7,mild,0.4,0.0
+"Lower Manhattan, United States",2023-04-06,61,rain,16.6,mild,3.3,0.0
+"Lower Manhattan, United States",2023-04-07,3,cloudy,11.2,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-08,3,cloudy,6.1,cold,0.0,0.0
+"Lower Manhattan, United States",2023-04-09,3,cloudy,6.4,cold,0.0,0.0
+"Lower Manhattan, United States",2023-04-10,0,clear,9.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-11,3,cloudy,14.8,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-12,3,cloudy,20.5,warm,0.0,0.0
+"Lower Manhattan, United States",2023-04-13,0,clear,22.1,warm,0.0,0.0
+"Lower Manhattan, United States",2023-04-14,3,cloudy,22.0,warm,0.0,0.0
+"Lower Manhattan, United States",2023-04-15,63,rain,17.6,warm,5.0,0.0
+"Lower Manhattan, United States",2023-04-16,3,cloudy,15.8,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-17,63,rain,14.4,mild,3.1,0.0
+"Lower Manhattan, United States",2023-04-18,51,drizzle,11.3,mild,0.1,0.0
+"Lower Manhattan, United States",2023-04-19,3,cloudy,10.4,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-20,3,cloudy,10.5,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-21,3,cloudy,13.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-22,63,rain,14.3,mild,15.7,0.0
+"Lower Manhattan, United States",2023-04-23,63,rain,14.6,mild,18.4,0.0
+"Lower Manhattan, United States",2023-04-24,3,cloudy,11.2,mild,0.0,0.0
+"Lower Manhattan, United States",2023-04-25,51,drizzle,10.4,mild,0.3,0.0
+"Lower Manhattan, United States",2023-04-26,53,drizzle,10.0,mild,0.9,0.0
+"Lower Manhattan, United States",2023-04-27,51,drizzle,10.6,mild,0.7,0.0
+"Lower Manhattan, United States",2023-04-28,61,rain,9.8,mild,6.1,0.0
+"Lower Manhattan, United States",2023-04-29,63,rain,10.7,mild,59.5,0.0
+"Lower Manhattan, United States",2023-04-30,63,rain,12.8,mild,22.2,0.0
+"Lower Manhattan, United States",2023-05-01,53,drizzle,12.6,mild,1.8,0.0
+"Lower Manhattan, United States",2023-05-02,51,drizzle,10.4,mild,0.8,0.0
+"Lower Manhattan, United States",2023-05-03,51,drizzle,9.5,mild,0.7,0.0
+"Lower Manhattan, United States",2023-05-04,53,drizzle,10.2,mild,1.7,0.0
+"Lower Manhattan, United States",2023-05-05,63,rain,11.6,mild,3.5,0.0
+"Lower Manhattan, United States",2023-05-06,3,cloudy,14.2,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-07,3,cloudy,16.4,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-08,3,cloudy,18.2,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-09,3,cloudy,14.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-10,1,clear,14.3,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-11,3,cloudy,17.8,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-12,3,cloudy,21.1,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-13,3,cloudy,22.0,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-14,3,cloudy,17.6,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-15,3,cloudy,17.5,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-16,3,cloudy,20.3,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-17,3,cloudy,15.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-18,0,clear,11.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-19,3,cloudy,14.9,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-20,63,rain,15.8,mild,26.9,0.0
+"Lower Manhattan, United States",2023-05-21,53,drizzle,17.3,warm,0.6,0.0
+"Lower Manhattan, United States",2023-05-22,51,drizzle,16.9,mild,0.2,0.0
+"Lower Manhattan, United States",2023-05-23,3,cloudy,14.5,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-24,53,drizzle,15.6,mild,0.7,0.0
+"Lower Manhattan, United States",2023-05-25,3,cloudy,14.7,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-26,1,clear,16.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-27,3,cloudy,17.2,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-28,3,cloudy,17.7,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-29,3,cloudy,18.5,warm,0.0,0.0
+"Lower Manhattan, United States",2023-05-30,0,clear,15.6,mild,0.0,0.0
+"Lower Manhattan, United States",2023-05-31,1,clear,16.1,mild,0.0,0.0
+"Lower Manhattan, United States",2023-06-01,3,cloudy,19.5,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-02,3,cloudy,22.3,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-03,61,rain,18.4,warm,3.5,0.0
+"Lower Manhattan, United States",2023-06-04,51,drizzle,15.5,mild,0.1,0.0
+"Lower Manhattan, United States",2023-06-05,3,cloudy,17.8,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-06,51,drizzle,19.6,warm,0.2,0.0
+"Lower Manhattan, United States",2023-06-07,2,cloudy,18.8,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-08,2,cloudy,16.8,mild,0.0,0.0
+"Lower Manhattan, United States",2023-06-09,53,drizzle,16.9,mild,0.9,0.0
+"Lower Manhattan, United States",2023-06-10,51,drizzle,19.1,warm,0.2,0.0
+"Lower Manhattan, United States",2023-06-11,3,cloudy,21.3,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-12,63,rain,21.0,warm,8.5,0.0
+"Lower Manhattan, United States",2023-06-13,3,cloudy,21.0,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-14,63,rain,18.5,warm,9.5,0.0
+"Lower Manhattan, United States",2023-06-15,3,cloudy,20.4,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-16,63,rain,19.2,warm,10.8,0.0
+"Lower Manhattan, United States",2023-06-17,51,drizzle,20.0,warm,0.1,0.0
+"Lower Manhattan, United States",2023-06-18,3,cloudy,21.4,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-19,53,drizzle,20.5,warm,1.4,0.0
+"Lower Manhattan, United States",2023-06-20,3,cloudy,19.5,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-21,51,drizzle,18.8,warm,0.3,0.0
+"Lower Manhattan, United States",2023-06-22,51,drizzle,18.2,warm,0.3,0.0
+"Lower Manhattan, United States",2023-06-23,63,rain,19.8,warm,12.4,0.0
+"Lower Manhattan, United States",2023-06-24,63,rain,21.6,warm,21.2,0.0
+"Lower Manhattan, United States",2023-06-25,53,drizzle,23.0,warm,1.9,0.0
+"Lower Manhattan, United States",2023-06-26,61,rain,21.8,warm,4.6,0.0
+"Lower Manhattan, United States",2023-06-27,65,rain,21.8,warm,18.7,0.0
+"Lower Manhattan, United States",2023-06-28,53,drizzle,22.9,warm,2.1,0.0
+"Lower Manhattan, United States",2023-06-29,3,cloudy,22.4,warm,0.0,0.0
+"Lower Manhattan, United States",2023-06-30,3,cloudy,23.0,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-01-01,55,drizzle,9.0,mild,2.1,0.0
+"Hell's Kitchen, United States",2023-01-02,51,drizzle,8.0,cold,0.8,0.0
+"Hell's Kitchen, United States",2023-01-03,63,rain,9.6,mild,11.9,0.0
+"Hell's Kitchen, United States",2023-01-04,53,drizzle,13.4,mild,2.1,0.0
+"Hell's Kitchen, United States",2023-01-05,3,cloudy,9.7,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-01-06,61,rain,6.0,cold,7.9,0.0
+"Hell's Kitchen, United States",2023-01-07,3,cloudy,3.6,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-08,3,cloudy,1.3,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-09,73,snow,2.9,cold,0.9,0.56
+"Hell's Kitchen, United States",2023-01-10,3,cloudy,2.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-11,3,cloudy,0.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-12,63,rain,5.3,cold,10.8,0.0
+"Hell's Kitchen, United States",2023-01-13,53,drizzle,9.3,mild,2.2,0.0
+"Hell's Kitchen, United States",2023-01-14,3,cloudy,0.9,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-15,3,cloudy,0.4,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-16,2,cloudy,1.3,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-17,53,drizzle,2.5,cold,0.9,0.0
+"Hell's Kitchen, United States",2023-01-18,51,drizzle,6.7,cold,0.3,0.0
+"Hell's Kitchen, United States",2023-01-19,63,rain,4.1,cold,16.8,0.0
+"Hell's Kitchen, United States",2023-01-20,53,drizzle,5.3,cold,0.5,0.0
+"Hell's Kitchen, United States",2023-01-21,51,drizzle,2.6,cold,0.2,0.0
+"Hell's Kitchen, United States",2023-01-22,61,rain,1.2,cold,5.3,0.0
+"Hell's Kitchen, United States",2023-01-23,73,snow,2.3,cold,15.5,0.7
+"Hell's Kitchen, United States",2023-01-24,3,cloudy,2.2,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-25,73,snow,2.1,cold,16.8,1.4
+"Hell's Kitchen, United States",2023-01-26,63,rain,7.4,cold,14.0,0.0
+"Hell's Kitchen, United States",2023-01-27,3,cloudy,2.1,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-28,3,cloudy,4.3,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-29,3,cloudy,5.5,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-30,3,cloudy,6.2,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-01-31,73,snow,3.2,cold,1.9,0.42
+"Hell's Kitchen, United States",2023-02-01,73,snow,-0.7,freezing,0.0,1.26
+"Hell's Kitchen, United States",2023-02-02,3,cloudy,-0.4,freezing,0.0,0.0
+"Hell's Kitchen, United States",2023-02-03,3,cloudy,-4.7,freezing,0.0,0.0
+"Hell's Kitchen, United States",2023-02-04,2,cloudy,-9.9,freezing,0.0,0.0
+"Hell's Kitchen, United States",2023-02-05,3,cloudy,1.2,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-06,3,cloudy,4.1,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-07,73,snow,0.3,cold,0.8,0.28
+"Hell's Kitchen, United States",2023-02-08,71,snow,4.8,cold,1.7,0.14
+"Hell's Kitchen, United States",2023-02-09,3,cloudy,4.5,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-10,3,cloudy,11.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-02-11,3,cloudy,3.4,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-12,73,snow,2.6,cold,0.2,0.35
+"Hell's Kitchen, United States",2023-02-13,73,snow,6.6,cold,0.3,0.21
+"Hell's Kitchen, United States",2023-02-14,3,cloudy,6.2,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-15,3,cloudy,10.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-02-16,61,rain,12.7,mild,2.9,0.0
+"Hell's Kitchen, United States",2023-02-17,71,snow,9.6,mild,6.7,0.14
+"Hell's Kitchen, United States",2023-02-18,2,cloudy,0.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-19,61,rain,3.8,cold,1.5,0.0
+"Hell's Kitchen, United States",2023-02-20,3,cloudy,8.7,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-21,61,rain,4.3,cold,5.4,0.0
+"Hell's Kitchen, United States",2023-02-22,73,snow,2.4,cold,4.0,0.42
+"Hell's Kitchen, United States",2023-02-23,51,drizzle,4.2,cold,0.7,0.0
+"Hell's Kitchen, United States",2023-02-24,3,cloudy,3.7,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-25,71,snow,-3.3,freezing,0.0,0.56
+"Hell's Kitchen, United States",2023-02-26,3,cloudy,1.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-02-27,75,snow,1.4,cold,0.1,2.45
+"Hell's Kitchen, United States",2023-02-28,75,snow,1.1,cold,2.2,7.42
+"Hell's Kitchen, United States",2023-03-01,75,snow,1.8,cold,0.5,1.47
+"Hell's Kitchen, United States",2023-03-02,53,drizzle,6.6,cold,1.7,0.0
+"Hell's Kitchen, United States",2023-03-03,55,drizzle,3.3,cold,2.3,0.0
+"Hell's Kitchen, United States",2023-03-04,65,rain,5.0,cold,41.1,0.0
+"Hell's Kitchen, United States",2023-03-05,3,cloudy,5.4,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-06,3,cloudy,5.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-07,73,snow,3.6,cold,0.0,1.54
+"Hell's Kitchen, United States",2023-03-08,3,cloudy,2.6,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-09,3,cloudy,4.2,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-10,63,rain,3.1,cold,7.1,0.0
+"Hell's Kitchen, United States",2023-03-11,73,snow,4.0,cold,11.4,1.33
+"Hell's Kitchen, United States",2023-03-12,3,cloudy,3.3,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-13,61,rain,4.5,cold,15.5,0.0
+"Hell's Kitchen, United States",2023-03-14,73,snow,2.0,cold,10.4,4.27
+"Hell's Kitchen, United States",2023-03-15,3,cloudy,3.1,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-16,3,cloudy,5.4,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-17,3,cloudy,8.5,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-18,51,drizzle,7.5,cold,0.6,0.0
+"Hell's Kitchen, United States",2023-03-19,3,cloudy,1.1,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-20,0,clear,3.1,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-21,3,cloudy,7.4,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-22,3,cloudy,7.9,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-23,61,rain,10.7,mild,3.8,0.0
+"Hell's Kitchen, United States",2023-03-24,3,cloudy,8.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-25,63,rain,5.4,cold,12.1,0.0
+"Hell's Kitchen, United States",2023-03-26,3,cloudy,9.2,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-03-27,53,drizzle,7.7,cold,3.5,0.0
+"Hell's Kitchen, United States",2023-03-28,51,drizzle,6.4,cold,0.6,0.0
+"Hell's Kitchen, United States",2023-03-29,3,cloudy,5.3,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-03-30,51,drizzle,3.0,cold,0.1,0.0
+"Hell's Kitchen, United States",2023-03-31,3,cloudy,5.6,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-04-01,61,rain,14.6,mild,9.0,0.0
+"Hell's Kitchen, United States",2023-04-02,3,cloudy,6.7,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-04-03,3,cloudy,6.8,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-04-04,3,cloudy,13.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-05,51,drizzle,11.1,mild,0.2,0.0
+"Hell's Kitchen, United States",2023-04-06,55,drizzle,16.4,mild,2.6,0.0
+"Hell's Kitchen, United States",2023-04-07,3,cloudy,11.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-08,3,cloudy,6.1,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-04-09,3,cloudy,6.4,cold,0.0,0.0
+"Hell's Kitchen, United States",2023-04-10,0,clear,9.1,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-11,3,cloudy,14.8,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-12,3,cloudy,20.3,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-04-13,0,clear,22.0,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-04-14,3,cloudy,22.0,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-04-15,61,rain,18.0,warm,2.7,0.0
+"Hell's Kitchen, United States",2023-04-16,3,cloudy,16.1,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-17,63,rain,14.3,mild,5.5,0.0
+"Hell's Kitchen, United States",2023-04-18,51,drizzle,11.0,mild,0.3,0.0
+"Hell's Kitchen, United States",2023-04-19,3,cloudy,10.2,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-20,3,cloudy,10.4,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-21,3,cloudy,13.3,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-22,63,rain,14.2,mild,14.4,0.0
+"Hell's Kitchen, United States",2023-04-23,63,rain,14.4,mild,20.4,0.0
+"Hell's Kitchen, United States",2023-04-24,3,cloudy,11.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-04-25,51,drizzle,10.1,mild,0.4,0.0
+"Hell's Kitchen, United States",2023-04-26,53,drizzle,9.9,mild,1.5,0.0
+"Hell's Kitchen, United States",2023-04-27,51,drizzle,10.6,mild,1.4,0.0
+"Hell's Kitchen, United States",2023-04-28,55,drizzle,9.8,mild,4.4,0.0
+"Hell's Kitchen, United States",2023-04-29,63,rain,10.6,mild,53.0,0.0
+"Hell's Kitchen, United States",2023-04-30,63,rain,12.5,mild,24.9,0.0
+"Hell's Kitchen, United States",2023-05-01,53,drizzle,12.5,mild,1.8,0.0
+"Hell's Kitchen, United States",2023-05-02,53,drizzle,10.4,mild,1.5,0.0
+"Hell's Kitchen, United States",2023-05-03,51,drizzle,9.4,mild,0.3,0.0
+"Hell's Kitchen, United States",2023-05-04,51,drizzle,10.2,mild,1.6,0.0
+"Hell's Kitchen, United States",2023-05-05,51,drizzle,11.5,mild,0.3,0.0
+"Hell's Kitchen, United States",2023-05-06,3,cloudy,14.1,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-07,51,drizzle,16.4,mild,0.4,0.0
+"Hell's Kitchen, United States",2023-05-08,51,drizzle,18.0,warm,0.3,0.0
+"Hell's Kitchen, United States",2023-05-09,3,cloudy,14.2,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-10,1,clear,14.4,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-11,3,cloudy,17.7,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-12,3,cloudy,21.1,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-13,3,cloudy,21.7,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-14,3,cloudy,17.3,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-15,3,cloudy,17.2,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-16,3,cloudy,20.1,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-17,3,cloudy,14.8,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-18,0,clear,11.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-19,3,cloudy,14.8,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-20,63,rain,15.7,mild,24.6,0.0
+"Hell's Kitchen, United States",2023-05-21,51,drizzle,17.1,warm,0.4,0.0
+"Hell's Kitchen, United States",2023-05-22,51,drizzle,16.9,mild,0.2,0.0
+"Hell's Kitchen, United States",2023-05-23,3,cloudy,14.7,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-24,51,drizzle,15.8,mild,0.1,0.0
+"Hell's Kitchen, United States",2023-05-25,3,cloudy,14.4,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-26,1,clear,16.0,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-27,3,cloudy,17.3,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-28,3,cloudy,17.9,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-29,3,cloudy,18.8,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-05-30,0,clear,15.9,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-05-31,2,cloudy,16.2,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-06-01,3,cloudy,19.7,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-02,3,cloudy,22.8,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-03,61,rain,18.3,warm,3.3,0.0
+"Hell's Kitchen, United States",2023-06-04,3,cloudy,15.4,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-06-05,3,cloudy,17.9,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-06,51,drizzle,19.2,warm,0.5,0.0
+"Hell's Kitchen, United States",2023-06-07,1,clear,18.6,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-08,3,cloudy,16.3,mild,0.0,0.0
+"Hell's Kitchen, United States",2023-06-09,61,rain,16.7,mild,1.4,0.0
+"Hell's Kitchen, United States",2023-06-10,61,rain,19.1,warm,2.0,0.0
+"Hell's Kitchen, United States",2023-06-11,53,drizzle,21.2,warm,0.5,0.0
+"Hell's Kitchen, United States",2023-06-12,63,rain,21.0,warm,6.1,0.0
+"Hell's Kitchen, United States",2023-06-13,3,cloudy,21.0,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-14,63,rain,18.3,warm,9.3,0.0
+"Hell's Kitchen, United States",2023-06-15,3,cloudy,20.5,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-16,65,rain,19.2,warm,15.3,0.0
+"Hell's Kitchen, United States",2023-06-17,3,cloudy,19.9,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-18,3,cloudy,21.1,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-19,53,drizzle,20.7,warm,1.0,0.0
+"Hell's Kitchen, United States",2023-06-20,3,cloudy,19.8,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-21,53,drizzle,18.7,warm,0.5,0.0
+"Hell's Kitchen, United States",2023-06-22,51,drizzle,18.0,warm,0.3,0.0
+"Hell's Kitchen, United States",2023-06-23,65,rain,19.8,warm,17.4,0.0
+"Hell's Kitchen, United States",2023-06-24,63,rain,21.6,warm,19.2,0.0
+"Hell's Kitchen, United States",2023-06-25,51,drizzle,23.1,warm,0.9,0.0
+"Hell's Kitchen, United States",2023-06-26,63,rain,21.9,warm,12.5,0.0
+"Hell's Kitchen, United States",2023-06-27,63,rain,21.6,warm,15.7,0.0
+"Hell's Kitchen, United States",2023-06-28,53,drizzle,22.7,warm,1.4,0.0
+"Hell's Kitchen, United States",2023-06-29,3,cloudy,22.3,warm,0.0,0.0
+"Hell's Kitchen, United States",2023-06-30,3,cloudy,23.0,warm,0.0,0.0
+"Astoria, United States",2023-01-01,51,drizzle,6.2,cold,0.1,0.0
+"Astoria, United States",2023-01-02,53,drizzle,5.4,cold,1.1,0.0
+"Astoria, United States",2023-01-03,61,rain,6.4,cold,2.7,0.0
+"Astoria, United States",2023-01-04,63,rain,6.2,cold,6.7,0.0
+"Astoria, United States",2023-01-05,63,rain,9.1,mild,12.1,0.0
+"Astoria, United States",2023-01-06,63,rain,8.6,cold,15.1,0.0
+"Astoria, United States",2023-01-07,61,rain,7.6,cold,8.9,0.0
+"Astoria, United States",2023-01-08,61,rain,7.8,cold,11.0,0.0
+"Astoria, United States",2023-01-09,61,rain,8.2,cold,10.9,0.0
+"Astoria, United States",2023-01-10,61,rain,8.9,cold,4.5,0.0
+"Astoria, United States",2023-01-11,61,rain,8.4,cold,13.7,0.0
+"Astoria, United States",2023-01-12,63,rain,9.8,mild,23.0,0.0
+"Astoria, United States",2023-01-13,63,rain,10.4,mild,18.0,0.0
+"Astoria, United States",2023-01-14,61,rain,9.7,mild,7.2,0.0
+"Astoria, United States",2023-01-15,61,rain,8.3,cold,14.4,0.0
+"Astoria, United States",2023-01-16,63,rain,6.9,cold,7.0,0.0
+"Astoria, United States",2023-01-17,63,rain,7.2,cold,13.2,0.0
+"Astoria, United States",2023-01-18,63,rain,7.3,cold,23.9,0.0
+"Astoria, United States",2023-01-19,51,drizzle,5.2,cold,0.1,0.0
+"Astoria, United States",2023-01-20,3,cloudy,5.3,cold,0.0,0.0
+"Astoria, United States",2023-01-21,73,snow,5.5,cold,5.5,0.49
+"Astoria, United States",2023-01-22,51,drizzle,7.2,cold,1.2,0.0
+"Astoria, United States",2023-01-23,51,drizzle,6.1,cold,0.5,0.0
+"Astoria, United States",2023-01-24,51,drizzle,6.2,cold,0.3,0.0
+"Astoria, United States",2023-01-25,51,drizzle,7.4,cold,0.1,0.0
+"Astoria, United States",2023-01-26,51,drizzle,5.6,cold,0.2,0.0
+"Astoria, United States",2023-01-27,53,drizzle,8.0,cold,6.7,0.0
+"Astoria, United States",2023-01-28,51,drizzle,6.9,cold,1.6,0.0
+"Astoria, United States",2023-01-29,1,clear,2.4,cold,0.0,0.0
+"Astoria, United States",2023-01-30,3,cloudy,0.9,cold,0.0,0.0
+"Astoria, United States",2023-01-31,3,cloudy,2.4,cold,0.0,0.0
+"Astoria, United States",2023-02-01,3,cloudy,4.1,cold,0.0,0.0
+"Astoria, United States",2023-02-02,3,cloudy,6.4,cold,0.0,0.0
+"Astoria, United States",2023-02-03,63,rain,8.2,cold,14.8,0.0
+"Astoria, United States",2023-02-04,53,drizzle,8.9,cold,4.5,0.0
+"Astoria, United States",2023-02-05,53,drizzle,8.0,cold,3.9,0.0
+"Astoria, United States",2023-02-06,53,drizzle,8.2,cold,4.0,0.0
+"Astoria, United States",2023-02-07,63,rain,8.4,cold,18.0,0.0
+"Astoria, United States",2023-02-08,71,snow,7.0,cold,6.0,0.07
+"Astoria, United States",2023-02-09,53,drizzle,9.4,mild,0.9,0.0
+"Astoria, United States",2023-02-10,55,drizzle,8.2,cold,4.2,0.0
+"Astoria, United States",2023-02-11,3,cloudy,6.0,cold,0.0,0.0
+"Astoria, United States",2023-02-12,53,drizzle,5.0,cold,0.7,0.0
+"Astoria, United States",2023-02-13,75,snow,5.9,cold,21.3,3.85
+"Astoria, United States",2023-02-14,75,snow,4.1,cold,2.4,3.08
+"Astoria, United States",2023-02-15,3,cloudy,2.7,cold,0.0,0.0
+"Astoria, United States",2023-02-16,3,cloudy,4.8,cold,0.0,0.0
+"Astoria, United States",2023-02-17,53,drizzle,6.5,cold,3.5,0.0
+"Astoria, United States",2023-02-18,51,drizzle,6.9,cold,1.3,0.0
+"Astoria, United States",2023-02-19,51,drizzle,7.7,cold,1.1,0.0
+"Astoria, United States",2023-02-20,61,rain,7.8,cold,4.7,0.0
+"Astoria, United States",2023-02-21,75,snow,5.2,cold,14.5,8.68
+"Astoria, United States",2023-02-22,73,snow,2.8,cold,5.5,0.35
+"Astoria, United States",2023-02-23,75,snow,-0.9,freezing,0.0,3.15
+"Astoria, United States",2023-02-24,3,cloudy,-0.9,freezing,0.0,0.0
+"Astoria, United States",2023-02-25,3,cloudy,0.7,cold,0.0,0.0
+"Astoria, United States",2023-02-26,75,snow,3.7,cold,19.5,3.64
+"Astoria, United States",2023-02-27,75,snow,3.5,cold,3.4,5.53
+"Astoria, United States",2023-02-28,75,snow,2.9,cold,3.7,6.37
+"Astoria, United States",2023-03-01,51,drizzle,2.6,cold,0.5,0.0
+"Astoria, United States",2023-03-02,63,rain,5.7,cold,12.4,0.0
+"Astoria, United States",2023-03-03,73,snow,4.0,cold,10.7,3.57
+"Astoria, United States",2023-03-04,75,snow,3.4,cold,19.1,6.23
+"Astoria, United States",2023-03-05,51,drizzle,3.6,cold,0.3,0.0
+"Astoria, United States",2023-03-06,51,drizzle,4.9,cold,0.6,0.0
+"Astoria, United States",2023-03-07,73,snow,4.5,cold,2.2,0.42
+"Astoria, United States",2023-03-08,71,snow,4.0,cold,2.1,0.14
+"Astoria, United States",2023-03-09,75,snow,4.1,cold,16.7,3.5
+"Astoria, United States",2023-03-10,73,snow,4.8,cold,13.3,0.28
+"Astoria, United States",2023-03-11,61,rain,6.1,cold,5.8,0.0
+"Astoria, United States",2023-03-12,61,rain,6.4,cold,7.3,0.0
+"Astoria, United States",2023-03-13,61,rain,7.1,cold,16.8,0.0
+"Astoria, United States",2023-03-14,53,drizzle,5.3,cold,0.8,0.0
+"Astoria, United States",2023-03-15,61,rain,6.5,cold,4.0,0.0
+"Astoria, United States",2023-03-16,3,cloudy,7.1,cold,0.0,0.0
+"Astoria, United States",2023-03-17,3,cloudy,8.5,cold,0.0,0.0
+"Astoria, United States",2023-03-18,3,cloudy,8.6,cold,0.0,0.0
+"Astoria, United States",2023-03-19,53,drizzle,9.1,mild,3.0,0.0
+"Astoria, United States",2023-03-20,61,rain,8.2,cold,10.4,0.0
+"Astoria, United States",2023-03-21,53,drizzle,8.2,cold,0.9,0.0
+"Astoria, United States",2023-03-22,51,drizzle,7.6,cold,0.2,0.0
+"Astoria, United States",2023-03-23,73,snow,6.0,cold,13.9,2.45
+"Astoria, United States",2023-03-24,75,snow,4.1,cold,15.9,11.34
+"Astoria, United States",2023-03-25,75,snow,3.6,cold,4.8,3.99
+"Astoria, United States",2023-03-26,75,snow,4.6,cold,11.4,4.2
+"Astoria, United States",2023-03-27,51,drizzle,6.1,cold,0.1,0.0
+"Astoria, United States",2023-03-28,63,rain,6.8,cold,16.9,0.0
+"Astoria, United States",2023-03-29,51,drizzle,6.7,cold,0.7,0.0
+"Astoria, United States",2023-03-30,51,drizzle,6.8,cold,0.4,0.0
+"Astoria, United States",2023-03-31,63,rain,6.1,cold,24.0,0.0
+"Astoria, United States",2023-04-01,75,snow,5.7,cold,18.1,2.66
+"Astoria, United States",2023-04-02,75,snow,4.0,cold,10.0,6.79
+"Astoria, United States",2023-04-03,75,snow,4.5,cold,4.5,2.73
+"Astoria, United States",2023-04-04,73,snow,5.1,cold,6.3,1.61
+"Astoria, United States",2023-04-05,51,drizzle,5.6,cold,1.9,0.0
+"Astoria, United States",2023-04-06,61,rain,8.3,cold,16.1,0.0
+"Astoria, United States",2023-04-07,55,drizzle,8.4,cold,8.4,0.0
+"Astoria, United States",2023-04-08,53,drizzle,8.4,cold,5.6,0.0
+"Astoria, United States",2023-04-09,63,rain,9.8,mild,22.4,0.0
+"Astoria, United States",2023-04-10,61,rain,7.4,cold,16.1,0.0
+"Astoria, United States",2023-04-11,71,snow,6.5,cold,13.8,0.14
+"Astoria, United States",2023-04-12,75,snow,5.7,cold,7.6,2.38
+"Astoria, United States",2023-04-13,51,drizzle,6.8,cold,0.4,0.0
+"Astoria, United States",2023-04-14,51,drizzle,6.7,cold,0.1,0.0
+"Astoria, United States",2023-04-15,53,drizzle,7.9,cold,1.2,0.0
+"Astoria, United States",2023-04-16,73,snow,6.9,cold,20.9,0.77
+"Astoria, United States",2023-04-17,71,snow,5.7,cold,11.5,0.07
+"Astoria, United States",2023-04-18,75,snow,5.0,cold,10.7,5.32
+"Astoria, United States",2023-04-19,73,snow,5.6,cold,5.0,0.7
+"Astoria, United States",2023-04-20,63,rain,5.7,cold,14.1,0.0
+"Astoria, United States",2023-04-21,51,drizzle,8.5,cold,0.6,0.0
+"Astoria, United States",2023-04-22,55,drizzle,10.2,mild,2.4,0.0
+"Astoria, United States",2023-04-23,61,rain,8.9,cold,8.0,0.0
+"Astoria, United States",2023-04-24,63,rain,8.5,cold,16.4,0.0
+"Astoria, United States",2023-04-25,3,cloudy,8.9,cold,0.0,0.0
+"Astoria, United States",2023-04-26,3,cloudy,10.2,mild,0.0,0.0
+"Astoria, United States",2023-04-27,3,cloudy,11.8,mild,0.0,0.0
+"Astoria, United States",2023-04-28,3,cloudy,17.2,warm,0.0,0.0
+"Astoria, United States",2023-04-29,3,cloudy,12.4,mild,0.0,0.0
+"Astoria, United States",2023-04-30,51,drizzle,11.0,mild,0.2,0.0
+"Astoria, United States",2023-05-01,51,drizzle,10.6,mild,0.2,0.0
+"Astoria, United States",2023-05-02,51,drizzle,11.2,mild,0.4,0.0
+"Astoria, United States",2023-05-03,3,cloudy,9.9,mild,0.0,0.0
+"Astoria, United States",2023-05-04,63,rain,9.7,mild,12.4,0.0
+"Astoria, United States",2023-05-05,51,drizzle,9.2,mild,2.1,0.0
+"Astoria, United States",2023-05-06,53,drizzle,10.4,mild,3.6,0.0
+"Astoria, United States",2023-05-07,51,drizzle,10.8,mild,0.3,0.0
+"Astoria, United States",2023-05-08,3,cloudy,11.2,mild,0.0,0.0
+"Astoria, United States",2023-05-09,51,drizzle,11.3,mild,0.1,0.0
+"Astoria, United States",2023-05-10,3,cloudy,11.4,mild,0.0,0.0
+"Astoria, United States",2023-05-11,3,cloudy,12.4,mild,0.0,0.0
+"Astoria, United States",2023-05-12,3,cloudy,13.2,mild,0.0,0.0
+"Astoria, United States",2023-05-13,2,cloudy,20.1,warm,0.0,0.0
+"Astoria, United States",2023-05-14,0,clear,23.7,warm,0.0,0.0
+"Astoria, United States",2023-05-15,3,cloudy,19.1,warm,0.0,0.0
+"Astoria, United States",2023-05-16,3,cloudy,14.6,mild,0.0,0.0
+"Astoria, United States",2023-05-17,3,cloudy,15.5,mild,0.0,0.0
+"Astoria, United States",2023-05-18,51,drizzle,13.9,mild,0.1,0.0
+"Astoria, United States",2023-05-19,3,cloudy,14.4,mild,0.0,0.0
+"Astoria, United States",2023-05-20,51,drizzle,14.2,mild,0.1,0.0
+"Astoria, United States",2023-05-21,51,drizzle,13.0,mild,2.2,0.0
+"Astoria, United States",2023-05-22,53,drizzle,12.3,mild,2.0,0.0
+"Astoria, United States",2023-05-23,51,drizzle,12.3,mild,1.0,0.0
+"Astoria, United States",2023-05-24,3,cloudy,12.5,mild,0.0,0.0
+"Astoria, United States",2023-05-25,1,clear,14.0,mild,0.0,0.0
+"Astoria, United States",2023-05-26,3,cloudy,13.7,mild,0.0,0.0
+"Astoria, United States",2023-05-27,51,drizzle,12.9,mild,0.3,0.0
+"Astoria, United States",2023-05-28,51,drizzle,12.4,mild,0.2,0.0
+"Astoria, United States",2023-05-29,3,cloudy,12.5,mild,0.0,0.0
+"Astoria, United States",2023-05-30,51,drizzle,11.6,mild,0.1,0.0
+"Astoria, United States",2023-05-31,51,drizzle,12.0,mild,1.1,0.0
+"Astoria, United States",2023-06-01,3,cloudy,12.2,mild,0.0,0.0
+"Astoria, United States",2023-06-02,3,cloudy,11.9,mild,0.0,0.0
+"Astoria, United States",2023-06-03,2,cloudy,12.7,mild,0.0,0.0
+"Astoria, United States",2023-06-04,1,clear,12.7,mild,0.0,0.0
+"Astoria, United States",2023-06-05,1,clear,13.9,mild,0.0,0.0
+"Astoria, United States",2023-06-06,0,clear,16.5,mild,0.0,0.0
+"Astoria, United States",2023-06-07,3,cloudy,13.7,mild,0.0,0.0
+"Astoria, United States",2023-06-08,3,cloudy,12.7,mild,0.0,0.0
+"Astoria, United States",2023-06-09,61,rain,12.0,mild,7.4,0.0
+"Astoria, United States",2023-06-10,51,drizzle,13.5,mild,2.0,0.0
+"Astoria, United States",2023-06-11,3,cloudy,14.3,mild,0.0,0.0
+"Astoria, United States",2023-06-12,3,cloudy,14.7,mild,0.0,0.0
+"Astoria, United States",2023-06-13,53,drizzle,13.7,mild,2.5,0.0
+"Astoria, United States",2023-06-14,53,drizzle,13.0,mild,3.1,0.0
+"Astoria, United States",2023-06-15,3,cloudy,13.1,mild,0.0,0.0
+"Astoria, United States",2023-06-16,3,cloudy,13.5,mild,0.0,0.0
+"Astoria, United States",2023-06-17,51,drizzle,12.9,mild,0.5,0.0
+"Astoria, United States",2023-06-18,61,rain,10.8,mild,11.5,0.0
+"Astoria, United States",2023-06-19,55,drizzle,10.7,mild,4.5,0.0
+"Astoria, United States",2023-06-20,51,drizzle,12.9,mild,1.2,0.0
+"Astoria, United States",2023-06-21,3,cloudy,13.6,mild,0.0,0.0
+"Astoria, United States",2023-06-22,3,cloudy,16.0,mild,0.0,0.0
+"Astoria, United States",2023-06-23,3,cloudy,13.8,mild,0.0,0.0
+"Astoria, United States",2023-06-24,3,cloudy,14.1,mild,0.0,0.0
+"Astoria, United States",2023-06-25,3,cloudy,13.8,mild,0.0,0.0
+"Astoria, United States",2023-06-26,51,drizzle,13.8,mild,2.0,0.0
+"Astoria, United States",2023-06-27,51,drizzle,14.6,mild,1.3,0.0
+"Astoria, United States",2023-06-28,3,cloudy,15.1,mild,0.0,0.0
+"Astoria, United States",2023-06-29,3,cloudy,15.8,mild,0.0,0.0
+"Astoria, United States",2023-06-30,51,drizzle,14.9,mild,0.2,0.0
