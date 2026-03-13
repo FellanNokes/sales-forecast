@@ -61,11 +61,11 @@ WEATHER_CODE_MAP = {
 # CREATE WEATHER FEATURE TABLE
 # -----------------------------
 
-def add_weather_fetures(df: pd.DataFrame) -> pd.DataFrame:
+def add_weather_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
 
     # Temperature category
-    df["weather_condition"] = df["temperature_mean"].apply(categorize_temperature)
+    df["temp_category"] = df["temperature_mean"].apply(categorize_temperature)
 
     # Weather condition
     df["weather_condition"] = df["weather_code"].map(WEATHER_CODE_MAP).fillna("unknown")
