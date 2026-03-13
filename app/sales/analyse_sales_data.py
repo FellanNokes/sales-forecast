@@ -39,8 +39,16 @@ def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
     # Create dataframe with fetched data
     df = pd.DataFrame(fetched_data)
 
+    # Ensure correct dtypes
+    df["transaction_date"] = pd.to_datetime(df["transaction_date"])
+    df["unit_price"] = pd.to_numeric(df["unit_price"], errors="coerce")
+    df["transaction_qty"] = pd.to_numeric(
+        df["transaction_qty"], errors="coerce")
+
     # Add product_grop
     df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
+
+    df["transaction_date"] = df["transaction_date"].astype(str)
 
     return df
 
@@ -119,6 +127,7 @@ PRODUCT_CATEGORY_MAP = {
 
 # Calculate the total revenue per day based on the store location.
 def total_revenue(df: pd.DataFrame):
+    df = df.copy()
     df["revenue_per_day"] = df["unit_price"] * df["transaction_qty"]
 
     total_revenue_store = (
@@ -145,10 +154,11 @@ def top5_products(df: pd.DataFrame):
     df["revenue"] = df["unit_price"] * df["transaction_qty"]
 
     top5 = (
-        df.groupby("product_type")["revenue"]
+        df.groupby(["store_location", "product_type"])["revenue"]
         .sum()
         .reset_index()
-        .sort_values("revenue", ascending=False)
+        .sort_values(["store_location", "revenue"], ascending=[True, False])
+        .groupby("store_location", group_keys=False)
         .head(5)
         .reset_index(drop=True)
 
