@@ -48,8 +48,6 @@ def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
     # Add product_grop
     df["product_group"] = df["product_type"].map(PRODUCT_CATEGORY_MAP)
 
-    df["transaction_date"] = df["transaction_date"].astype(str)
-
     return df
 
 
@@ -57,6 +55,10 @@ def fetch_all_sales_data(supabase: Client, table_name: str) -> pd.DataFrame:
 def upload_sales_analytics(supabase: Client, df: pd.DataFrame, table_name: str, batch_size: int = 500):
 
     df = df.copy()
+
+    # Convert transaction_date to string at upload
+    if "transaction_date" in df.columns:
+        df["transaction_date"] = df["transaction_date"].astype(str)
 
     records = df.to_dict(orient="records")
     total = len(records)
