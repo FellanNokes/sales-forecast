@@ -1,0 +1,7 @@
+# This file was automatically generated
+name: supabase
+type: postgres
+options:
+  database: postgres
+  host: aws-1-eu-west-1.pooler.supabase.com
+  port: 5432

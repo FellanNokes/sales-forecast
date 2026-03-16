@@ -1,0 +1,1 @@
+SELECT * FROM public.historic_weather LIMIT 5
