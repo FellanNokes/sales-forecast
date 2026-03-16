@@ -4,19 +4,19 @@
 ```sql revenue_by_store
 SELECT * FROM supabase.analytics_revenue_by_store
 ```
-<DataTable data={revenue_by_store} />
+<LineChart data={revenue_by_store} />
 
 ## Top 5 Products (All Time)
 ```sql top5_products
 SELECT * FROM supabase.analytics_top5_products
 ```
-<DataTable data={top5_products} />
+<BarChart data={top5_products} />
 
 ## Top 5 Products by Month
 ```sql top5_products_month
 SELECT * FROM supabase.analytics_top5_products_month
 ```
-<DataTable data={top5_products_month} />
+<BarChart data={top5_products_month} />
 
 ## Revenue per Month
 ```sql revenue_per_month
