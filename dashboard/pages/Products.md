@@ -84,15 +84,15 @@ WHERE store_location NOT IN ('Lower Manhattan', 'Astoria')
 
         ## Lower Manhattan
 
-        <BarChart data={top_LM} x=product_type y=revenue_per_day sort=-revenue_per_day />
+        <BarChart data={top_LM} x=product_type y=revenue_per_month sort=revenue_per_month />
 
         ## Astoria
 
-        <BarChart data={top_A} x=product_type y=revenue_per_day sort=-revenue_per_day />
+        <BarChart data={top_A} x=product_type y=revenue_per_month sort=revenue_per_month  />
 
         ## Hell's Kitchen
 
-        <BarChart data={top_HK} x=product_type y=revenue_per_day sort=-revenue_per_day />
+        <BarChart data={top_HK} x=product_type y=revenue_per_month sort=revenue_per_month  />
 
     </Tab>
     <Tab label="Least 5 sold products">

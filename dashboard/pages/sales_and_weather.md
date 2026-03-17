@@ -1,3 +1,7 @@
+```sql weather_sales
+SELECT * FROM supabase.weather_sales_summary
+```
+
 ```sql WS_LM
 SELECT * FROM supabase.weather_sales_summary
 WHERE store_location = 'Lower Manhattan'
@@ -23,6 +27,17 @@ WHERE store_location = 'Astoria'
 
 <ScatterPlot
     data={WS_A}
+    x="temperature_mean"
+    y="total_revenue"
+    series="store_location"
+    xAxisTitle="Temperatur (°C)"
+    yAxisTitle="Revenue (USD)"
+/>
+
+## All locations
+
+<ScatterPlot
+    data={weather_sales}
     x="temperature_mean"
     y="total_revenue"
     series="store_location"
