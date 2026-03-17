@@ -1,1 +1,4 @@
-SELECT * FROM weather_sales_summary
+SELECT
+    *
+FROM
+    weather_sales_summary
