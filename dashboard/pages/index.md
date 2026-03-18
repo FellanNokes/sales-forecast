@@ -1,49 +1,103 @@
-# Sales Dashboard
-
-## Revenue by Store
-```sql revenue_by_store
-SELECT * FROM supabase.analytics_revenue_by_store
+```sql all_locations
+SELECT
+  temperature_mean,
+  SUM(total_revenue) AS total_revenue
+FROM supabase.weather_sales_summary
+GROUP BY temperature_mean
+ORDER BY temperature_mean
 ```
-<LineChart data={revenue_by_store} />
 
-## Top 5 Products (All Time)
-```sql top5_products
-SELECT * FROM supabase.analytics_top5_products
-```
-<BarChart data={top5_products} />
-
-## Top 5 Products by Month
-```sql top5_products_month
-SELECT * FROM supabase.analytics_top5_products_month
-```
-<BarChart data={top5_products_month} />
-
-## Revenue per Month
-```sql revenue_per_month
-SELECT * FROM supabase.analytics_revenue_per_month
-```
-<DataTable data={revenue_per_month} />
-
-## Top Day Revenue per Month
-```sql top_day_per_month
-SELECT * FROM supabase.analytics_top_day_per_month
-```
-<DataTable data={top_day_per_month} />
-
-## Least Popular Products
-```sql least5_popular
-SELECT * FROM supabase.analytics_least5_popular
-```
-<DataTable data={least5_popular} />
-
-## Weather & Sales Summary
-```sql weather_sales_summary
+```sql WS_LM
 SELECT * FROM supabase.weather_sales_summary
+WHERE store_location = 'Lower Manhattan'
 ```
-<DataTable data={weather_sales_summary} />
 
-## Weather Correlation Results
-```sql weather_correlation_results
-SELECT * FROM supabase.weather_correlation_results
+```sql WS_A
+SELECT * FROM supabase.weather_sales_summary
+WHERE store_location = 'Astoria'
 ```
-<DataTable data={weather_correlation_results} />
+
+```sql WS_HK
+SELECT * FROM supabase.weather_sales_summary
+WHERE store_location NOT IN ('Astoria', 'Lower Manhattan')
+```
+
+```sql peak_temp
+SELECT
+  temperature_mean,
+  SUM(total_revenue) AS total_revenue
+FROM supabase.weather_sales_summary
+GROUP BY temperature_mean
+ORDER BY total_revenue DESC
+LIMIT 1
+```
+
+# Sales vs Temperature
+
+<BigValue
+    data={peak_temp}
+    value="temperature_mean"
+    title="Temperature At Highest Revenue (°C)"
+/>
+
+<PageBreak/>
+
+<BigValue color=#576f8a
+    data={peak_temp}
+    value="total_revenue"
+    title="Revenue (USD) At Temperature"
+/>
+
+## All locations
+
+<ScatterPlot
+            data={all_locations}
+            x="temperature_mean"
+            y="total_revenue"
+            xAxisTitle="Temperatur (°C)"
+            yAxisTitle="Revenue (USD)"
+        />
+
+## Sales vs Temperature For Each Store Location
+
+<Tabs color=#4971a6>
+    <Tab label="Lower Manhattan">
+
+        ## Lower Manhattan (Sales vs Temperature)
+        <ScatterPlot
+            data={WS_LM}
+            x="temperature_mean"
+            y="total_revenue"
+            series="store_location"
+            xAxisTitle= "Temperatur (°C)"
+            yAxisTitle= "Revenue (USD)"
+        />
+    </Tab>
+    <Tab label="Astoria">
+
+        ## Astoria (Sales vs Temperature)
+        <ScatterPlot
+            data={WS_A}
+            x="temperature_mean"
+            y="total_revenue"
+            series="store_location"
+            xAxisTitle="Temperatur (°C)"
+            yAxisTitle="Revenue (USD)"
+        />
+    </Tab>
+
+    <Tab label="Hell's Kitchen">
+
+        ## Hell's Kitchen (Sales vs Temperature)
+        <ScatterPlot
+            data={WS_HK}
+            x="temperature_mean"
+            y="total_revenue"
+            series="store_location"
+            xAxisTitle="Temperatur (°C)"
+            yAxisTitle="Revenue (USD)"
+        />
+
+    </Tab>
+
+</Tabs>
