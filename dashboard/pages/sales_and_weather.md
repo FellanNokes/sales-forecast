@@ -221,39 +221,50 @@ ORDER BY days DESC
 ```
 
 <Tabs fullWidth=true>
-    <Tab label="All stores">
+    <Tab label="Revenue by temperature">
 
         <Tabs>
-            <Tab label="Revenue by temperature">
+            <Tab label="Avg revenue per day">
                 <Tabs>
-                    <Tab label="Total revenue">
+                    <Tab label="All stores">
                         <BarChart 
                             data={days_per_temp}
                             x=temp_category
-                            y=revenue
-                            title="Total revenue by temperature category"
+                            y=revenue_per_day
+                            title="Avg revenue per day by temperature category — all stores"
                             yAxisTitle="Revenue ($)"
                             xAxisTitle="Temperature category"
                             colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
                         />
                     </Tab>
-                    <Tab label="Days per category">
+                    <Tab label="Lower Manhattan">
                         <BarChart 
-                            data={days_per_temp}
+                            data={days_per_temp_LM}
                             x=temp_category
-                            y=days
-                            title="Number of days per temperature category"
-                            yAxisTitle="Days"
+                            y=revenue_per_day
+                            title="Avg revenue per day by temperature category — Lower Manhattan"
+                            yAxisTitle="Revenue ($)"
                             xAxisTitle="Temperature category"
                             colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
                         />
                     </Tab>
-                    <Tab label="Avg revenue per day">
+                    <Tab label="Astoria">
                         <BarChart 
-                            data={days_per_temp}
+                            data={days_per_temp_A}
                             x=temp_category
                             y=revenue_per_day
-                            title="Avg revenue per day by temperature category"
+                            title="Avg revenue per day by temperature category — Astoria"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Hell's Kitchen">
+                        <BarChart 
+                            data={days_per_temp_HK}
+                            x=temp_category
+                            y=revenue_per_day
+                            title="Avg revenue per day by temperature category — Hell's Kitchen"
                             yAxisTitle="Revenue ($)"
                             xAxisTitle="Temperature category"
                             colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
@@ -261,36 +272,149 @@ ORDER BY days DESC
                     </Tab>
                 </Tabs>
             </Tab>
-            <Tab label="Revenue by weather condition">
+            <Tab label="Total revenue">
                 <Tabs>
-                    <Tab label="Total revenue">
+                    <Tab label="All stores">
+                        <BarChart 
+                            data={days_per_temp}
+                            x=temp_category
+                            y=revenue
+                            title="Total revenue by temperature category — all stores"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Lower Manhattan">
+                        <BarChart 
+                            data={days_per_temp_LM}
+                            x=temp_category
+                            y=revenue
+                            title="Total revenue by temperature category — Lower Manhattan"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Astoria">
+                        <BarChart 
+                            data={days_per_temp_A}
+                            x=temp_category
+                            y=revenue
+                            title="Total revenue by temperature category — Astoria"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Hell's Kitchen">
+                        <BarChart 
+                            data={days_per_temp_HK}
+                            x=temp_category
+                            y=revenue
+                            title="Total revenue by temperature category — Hell's Kitchen"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                </Tabs>
+            </Tab>
+            <Tab label="Days per category">
+                <Tabs>
+                    <Tab label="All stores">
+                        <BarChart 
+                            data={days_per_temp}
+                            x=temp_category
+                            y=days
+                            title="Number of days per temperature category — all stores"
+                            yAxisTitle="Days"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Lower Manhattan">
+                        <BarChart 
+                            data={days_per_temp_LM}
+                            x=temp_category
+                            y=days
+                            title="Number of days per temperature category — Lower Manhattan"
+                            yAxisTitle="Days"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Astoria">
+                        <BarChart 
+                            data={days_per_temp_A}
+                            x=temp_category
+                            y=days
+                            title="Number of days per temperature category — Astoria"
+                            yAxisTitle="Days"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                    <Tab label="Hell's Kitchen">
+                        <BarChart 
+                            data={days_per_temp_HK}
+                            x=temp_category
+                            y=days
+                            title="Number of days per temperature category — Hell's Kitchen"
+                            yAxisTitle="Days"
+                            xAxisTitle="Temperature category"
+                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
+                        />
+                    </Tab>
+                </Tabs>
+            </Tab>
+        </Tabs>
+
+    </Tab>
+    <Tab label="Revenue by weather condition">
+
+        <Tabs>
+            <Tab label="Avg revenue per day">
+                <Tabs>
+                    <Tab label="All stores">
                         <BarChart 
                             data={days_per_weather}
                             x=weather_condition
-                            y=revenue
-                            title="Total revenue by weather condition"
+                            y=revenue_per_day
+                            title="Avg revenue per day by weather condition — all stores"
                             yAxisTitle="Revenue ($)"
                             xAxisTitle="Weather condition"
                             colorPalette={['#7F77DD']}
                         />
                     </Tab>
-                    <Tab label="Days per condition">
+                    <Tab label="Lower Manhattan">
                         <BarChart 
-                            data={days_per_weather}
+                            data={days_per_weather_LM}
                             x=weather_condition
-                            y=days
-                            title="Number of days per weather condition"
-                            yAxisTitle="Days"
+                            y=revenue_per_day
+                            title="Avg revenue per day by weather condition — Lower Manhattan"
+                            yAxisTitle="Revenue ($)"
                             xAxisTitle="Weather condition"
                             colorPalette={['#7F77DD']}
                         />
                     </Tab>
-                    <Tab label="Avg revenue per day">
+                    <Tab label="Astoria">
                         <BarChart 
-                            data={days_per_weather}
+                            data={days_per_weather_A}
                             x=weather_condition
                             y=revenue_per_day
-                            title="Avg revenue per day by weather condition"
+                            title="Avg revenue per day by weather condition — Astoria"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Hell's Kitchen">
+                        <BarChart 
+                            data={days_per_weather_HK}
+                            x=weather_condition
+                            y=revenue_per_day
+                            title="Avg revenue per day by weather condition — Hell's Kitchen"
                             yAxisTitle="Revenue ($)"
                             xAxisTitle="Weather condition"
                             colorPalette={['#7F77DD']}
@@ -298,7 +422,109 @@ ORDER BY days DESC
                     </Tab>
                 </Tabs>
             </Tab>
-            <Tab label="Weather & temperature combined">
+            <Tab label="Total revenue">
+                <Tabs>
+                    <Tab label="All stores">
+                        <BarChart 
+                            data={days_per_weather}
+                            x=weather_condition
+                            y=revenue
+                            title="Total revenue by weather condition — all stores"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Lower Manhattan">
+                        <BarChart 
+                            data={days_per_weather_LM}
+                            x=weather_condition
+                            y=revenue
+                            title="Total revenue by weather condition — Lower Manhattan"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Astoria">
+                        <BarChart 
+                            data={days_per_weather_A}
+                            x=weather_condition
+                            y=revenue
+                            title="Total revenue by weather condition — Astoria"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Hell's Kitchen">
+                        <BarChart 
+                            data={days_per_weather_HK}
+                            x=weather_condition
+                            y=revenue
+                            title="Total revenue by weather condition — Hell's Kitchen"
+                            yAxisTitle="Revenue ($)"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                </Tabs>
+            </Tab>
+            <Tab label="Days per condition">
+                <Tabs>
+                    <Tab label="All stores">
+                        <BarChart 
+                            data={days_per_weather}
+                            x=weather_condition
+                            y=days
+                            title="Number of days per weather condition — all stores"
+                            yAxisTitle="Days"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Lower Manhattan">
+                        <BarChart 
+                            data={days_per_weather_LM}
+                            x=weather_condition
+                            y=days
+                            title="Number of days per weather condition — Lower Manhattan"
+                            yAxisTitle="Days"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Astoria">
+                        <BarChart 
+                            data={days_per_weather_A}
+                            x=weather_condition
+                            y=days
+                            title="Number of days per weather condition — Astoria"
+                            yAxisTitle="Days"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                    <Tab label="Hell's Kitchen">
+                        <BarChart 
+                            data={days_per_weather_HK}
+                            x=weather_condition
+                            y=days
+                            title="Number of days per weather condition — Hell's Kitchen"
+                            yAxisTitle="Days"
+                            xAxisTitle="Weather condition"
+                            colorPalette={['#7F77DD']}
+                        />
+                    </Tab>
+                </Tabs>
+            </Tab>
+        </Tabs>
+
+    </Tab>
+    <Tab label="Weather & temperature combined">
+
+        <Tabs>
+            <Tab label="All stores">
                 <BarChart 
                     data={revenue_by_weather}
                     x=weather_condition
@@ -306,105 +532,14 @@ ORDER BY days DESC
                     y2=transactions
                     y2SeriesType=line
                     series=temp_category
-                    title="Revenue and transaction count by weather condition and temperature"
+                    title="Revenue and transaction count by weather condition and temperature — all stores"
                     yAxisTitle="Revenue ($)"
                     y2AxisTitle="Transactions"
                     type=grouped
                     colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
                 />
             </Tab>
-            <Tab label="Product category by weather">
-                <BarChart 
-                    data={category_by_weather}
-                    x=weather_condition
-                    y=revenue
-                    series=product_category
-                    title="Product category sales by weather condition"
-                    yAxisTitle="Revenue ($)"
-                    type=stacked
-                />
-            </Tab>
-        </Tabs>
-
-    </Tab>
-    <Tab label="Lower Manhattan">
-
-        <Tabs>
-            <Tab label="Revenue by temperature">
-                <Tabs>
-                    <Tab label="Total revenue">
-                        <BarChart 
-                            data={days_per_temp_LM}
-                            x=temp_category
-                            y=revenue
-                            title="Total revenue by temperature category"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                    <Tab label="Days per category">
-                        <BarChart 
-                            data={days_per_temp_LM}
-                            x=temp_category
-                            y=days
-                            title="Number of days per temperature category"
-                            yAxisTitle="Days"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                    <Tab label="Avg revenue per day">
-                        <BarChart 
-                            data={days_per_temp_LM}
-                            x=temp_category
-                            y=revenue_per_day
-                            title="Avg revenue per day by temperature category"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                </Tabs>
-            </Tab>
-            <Tab label="Revenue by weather condition">
-                <Tabs>
-                    <Tab label="Total revenue">
-                        <BarChart 
-                            data={days_per_weather_LM}
-                            x=weather_condition
-                            y=revenue
-                            title="Total revenue by weather condition"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                    <Tab label="Days per condition">
-                        <BarChart 
-                            data={days_per_weather_LM}
-                            x=weather_condition
-                            y=days
-                            title="Number of days per weather condition"
-                            yAxisTitle="Days"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                    <Tab label="Avg revenue per day">
-                        <BarChart 
-                            data={days_per_weather_LM}
-                            x=weather_condition
-                            y=revenue_per_day
-                            title="Avg revenue per day by weather condition"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                </Tabs>
-            </Tab>
-            <Tab label="Weather & temperature combined">
+            <Tab label="Lower Manhattan">
                 <BarChart 
                     data={revenue_by_weather_LM}
                     x=weather_condition
@@ -412,105 +547,14 @@ ORDER BY days DESC
                     y2=transactions
                     y2SeriesType=line
                     series=temp_category
-                    title="Revenue and transaction count by weather condition and temperature"
+                    title="Revenue and transaction count by weather condition and temperature — Lower Manhattan"
                     yAxisTitle="Revenue ($)"
                     y2AxisTitle="Transactions"
                     type=grouped
                     colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
                 />
             </Tab>
-            <Tab label="Product category by weather">
-                <BarChart 
-                    data={category_by_weather_LM}
-                    x=weather_condition
-                    y=revenue
-                    series=product_category
-                    title="Product category sales by weather condition"
-                    yAxisTitle="Revenue ($)"
-                    type=stacked
-                />
-            </Tab>
-        </Tabs>
-
-    </Tab>
-    <Tab label="Astoria">
-
-        <Tabs>
-            <Tab label="Revenue by temperature">
-                <Tabs>
-                    <Tab label="Total revenue">
-                        <BarChart 
-                            data={days_per_temp_A}
-                            x=temp_category
-                            y=revenue
-                            title="Total revenue by temperature category"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                    <Tab label="Days per category">
-                        <BarChart 
-                            data={days_per_temp_A}
-                            x=temp_category
-                            y=days
-                            title="Number of days per temperature category"
-                            yAxisTitle="Days"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                    <Tab label="Avg revenue per day">
-                        <BarChart 
-                            data={days_per_temp_A}
-                            x=temp_category
-                            y=revenue_per_day
-                            title="Avg revenue per day by temperature category"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                </Tabs>
-            </Tab>
-            <Tab label="Revenue by weather condition">
-                <Tabs>
-                    <Tab label="Total revenue">
-                        <BarChart 
-                            data={days_per_weather_A}
-                            x=weather_condition
-                            y=revenue
-                            title="Total revenue by weather condition"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                    <Tab label="Days per condition">
-                        <BarChart 
-                            data={days_per_weather_A}
-                            x=weather_condition
-                            y=days
-                            title="Number of days per weather condition"
-                            yAxisTitle="Days"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                    <Tab label="Avg revenue per day">
-                        <BarChart 
-                            data={days_per_weather_A}
-                            x=weather_condition
-                            y=revenue_per_day
-                            title="Avg revenue per day by weather condition"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                </Tabs>
-            </Tab>
-            <Tab label="Weather & temperature combined">
+            <Tab label="Astoria">
                 <BarChart 
                     data={revenue_by_weather_A}
                     x=weather_condition
@@ -518,105 +562,14 @@ ORDER BY days DESC
                     y2=transactions
                     y2SeriesType=line
                     series=temp_category
-                    title="Revenue and transaction count by weather condition and temperature"
+                    title="Revenue and transaction count by weather condition and temperature — Astoria"
                     yAxisTitle="Revenue ($)"
                     y2AxisTitle="Transactions"
                     type=grouped
                     colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
                 />
             </Tab>
-            <Tab label="Product category by weather">
-                <BarChart 
-                    data={category_by_weather_A}
-                    x=weather_condition
-                    y=revenue
-                    series=product_category
-                    title="Product category sales by weather condition"
-                    yAxisTitle="Revenue ($)"
-                    type=stacked
-                />
-            </Tab>
-        </Tabs>
-
-    </Tab>
-    <Tab label="Hell's Kitchen">
-
-        <Tabs>
-            <Tab label="Revenue by temperature">
-                <Tabs>
-                    <Tab label="Total revenue">
-                        <BarChart 
-                            data={days_per_temp_HK}
-                            x=temp_category
-                            y=revenue
-                            title="Total revenue by temperature category"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                    <Tab label="Days per category">
-                        <BarChart 
-                            data={days_per_temp_HK}
-                            x=temp_category
-                            y=days
-                            title="Number of days per temperature category"
-                            yAxisTitle="Days"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                    <Tab label="Avg revenue per day">
-                        <BarChart 
-                            data={days_per_temp_HK}
-                            x=temp_category
-                            y=revenue_per_day
-                            title="Avg revenue per day by temperature category"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Temperature category"
-                            colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
-                        />
-                    </Tab>
-                </Tabs>
-            </Tab>
-            <Tab label="Revenue by weather condition">
-                <Tabs>
-                    <Tab label="Total revenue">
-                        <BarChart 
-                            data={days_per_weather_HK}
-                            x=weather_condition
-                            y=revenue
-                            title="Total revenue by weather condition"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                    <Tab label="Days per condition">
-                        <BarChart 
-                            data={days_per_weather_HK}
-                            x=weather_condition
-                            y=days
-                            title="Number of days per weather condition"
-                            yAxisTitle="Days"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                    <Tab label="Avg revenue per day">
-                        <BarChart 
-                            data={days_per_weather_HK}
-                            x=weather_condition
-                            y=revenue_per_day
-                            title="Avg revenue per day by weather condition"
-                            yAxisTitle="Revenue ($)"
-                            xAxisTitle="Weather condition"
-                            colorPalette={['#7F77DD']}
-                        />
-                    </Tab>
-                </Tabs>
-            </Tab>
-            <Tab label="Weather & temperature combined">
+            <Tab label="Hell's Kitchen">
                 <BarChart 
                     data={revenue_by_weather_HK}
                     x=weather_condition
@@ -624,20 +577,59 @@ ORDER BY days DESC
                     y2=transactions
                     y2SeriesType=line
                     series=temp_category
-                    title="Revenue and transaction count by weather condition and temperature"
+                    title="Revenue and transaction count by weather condition and temperature — Hell's Kitchen"
                     yAxisTitle="Revenue ($)"
                     y2AxisTitle="Transactions"
                     type=grouped
                     colorPalette={['#378ADD', '#1D9E75', '#EF9F27', '#D85A30']}
                 />
             </Tab>
-            <Tab label="Product category by weather">
+        </Tabs>
+
+    </Tab>
+    <Tab label="Product category by weather">
+
+        <Tabs>
+            <Tab label="All stores">
+                <BarChart 
+                    data={category_by_weather}
+                    x=weather_condition
+                    y=revenue
+                    series=product_category
+                    title="Product category sales by weather condition — all stores"
+                    yAxisTitle="Revenue ($)"
+                    type=stacked
+                />
+            </Tab>
+            <Tab label="Lower Manhattan">
+                <BarChart 
+                    data={category_by_weather_LM}
+                    x=weather_condition
+                    y=revenue
+                    series=product_category
+                    title="Product category sales by weather condition — Lower Manhattan"
+                    yAxisTitle="Revenue ($)"
+                    type=stacked
+                />
+            </Tab>
+            <Tab label="Astoria">
+                <BarChart 
+                    data={category_by_weather_A}
+                    x=weather_condition
+                    y=revenue
+                    series=product_category
+                    title="Product category sales by weather condition — Astoria"
+                    yAxisTitle="Revenue ($)"
+                    type=stacked
+                />
+            </Tab>
+            <Tab label="Hell's Kitchen">
                 <BarChart 
                     data={category_by_weather_HK}
                     x=weather_condition
                     y=revenue
                     series=product_category
-                    title="Product category sales by weather condition"
+                    title="Product category sales by weather condition — Hell's Kitchen"
                     yAxisTitle="Revenue ($)"
                     type=stacked
                 />
