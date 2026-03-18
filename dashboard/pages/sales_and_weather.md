@@ -2,6 +2,15 @@
 SELECT * FROM supabase.weather_sales_summary
 ```
 
+```sql all_locations
+SELECT
+  temperature_mean,
+  SUM(total_revenue) AS total_revenue
+FROM supabase.weather_sales_summary
+GROUP BY temperature_mean
+ORDER BY temperature_mean
+```
+
 ```sql WS_LM
 SELECT * FROM supabase.weather_sales_summary
 WHERE store_location = 'Lower Manhattan'
@@ -12,43 +21,88 @@ SELECT * FROM supabase.weather_sales_summary
 WHERE store_location = 'Astoria'
 ```
 
-## Lower Manhattan (Sales & Weather Correlation)
+```sql WS_HK
+SELECT * FROM supabase.weather_sales_summary
+WHERE store_location NOT IN ('Astoria', 'Lower Manhattan')
+```
 
-<ScatterPlot
-    data={WS_LM}
-    x="temperature_mean"
-    y="total_revenue"
-    series="store_location"
-    xAxisTitle= "Temperatur (°C)"
-    yAxisTitle= "Revenue (USD)"
+```sql peak_temp
+SELECT
+  temperature_mean,
+  SUM(total_revenue) AS total_revenue
+FROM supabase.weather_sales_summary
+GROUP BY temperature_mean
+ORDER BY total_revenue DESC
+LIMIT 1
+```
+
+# Sales vs Mean Temperature
+
+<BigValue
+    data={peak_temp}
+    value="temperature_mean"
+    title="Mean Temperature At Highest Revenue (°C)"
 />
 
-## Astoria (Sales & Weather Correlation)
-
-<ScatterPlot
-    data={WS_A}
-    x="temperature_mean"
-    y="total_revenue"
-    series="store_location"
-    xAxisTitle="Temperatur (°C)"
-    yAxisTitle="Revenue (USD)"
+<BigValue color=#576f8a
+    data={peak_temp}
+    value="total_revenue"
+    title="Revenue (USD) At Mean Temperature"
 />
 
-## All locations
+<Tabs color=#4971a6>
+    <Tab label = "All Locations">
+        <ScatterPlot
+            data={all_locations}
+            title = "All locations (Sales vs Mean Temperature)"
+            x="temperature_mean"
+            y="total_revenue"
+            xAxisTitle="Temperatur (°C)"
+            yAxisTitle="Revenue (USD)"
+        />
+    </Tab>
+    <Tab label="Lower Manhattan">
+        <ScatterPlot
+            title = "Lower Manhattan (Sales vs Mean Temperature)"
+            data={WS_LM}
+            x="temperature_mean"
+            y="total_revenue"
+            series="store_location"
+            xAxisTitle= "Temperatur (°C)"
+            yAxisTitle= "Revenue (USD)"
+        />
+    </Tab>
+    <Tab label="Astoria">
+        <ScatterPlot
+            title = " Astoria (Sales vs Mean Temperature)"
+            data={WS_A}
+            x="temperature_mean"
+            y="total_revenue"
+            series="store_location"
+            xAxisTitle="Temperatur (°C)"
+            yAxisTitle="Revenue (USD)"
+        />
+    </Tab>
 
-<ScatterPlot
-    data={weather_sales}
-    x="temperature_mean"
-    y="total_revenue"
-    series="store_location"
-    xAxisTitle="Temperatur (°C)"
-    yAxisTitle="Revenue (USD)"
-/>
+    <Tab label="Hell's Kitchen">
+        <ScatterPlot
+            title = "Hell's Kitchen (Sales vs Mean Temperature)"
+            data={WS_HK}
+            x="temperature_mean"
+            y="total_revenue"
+            series="store_location"
+            xAxisTitle="Temperatur (°C)"
+            yAxisTitle="Revenue (USD)"
+        />
 
+    </Tab>
+
+</Tabs>
 
 ## Weather & temperature sales analysis
+
 ```sql revenue_by_weather
-SELECT 
+SELECT
     weather_condition,
     temp_category,
     COUNT(*) as transactions,
@@ -58,8 +112,9 @@ FROM supabase.sales_weather_joined
 GROUP BY weather_condition, temp_category
 ORDER BY revenue DESC
 ```
+
 ```sql revenue_by_weather_LM
-SELECT 
+SELECT
     weather_condition,
     temp_category,
     COUNT(*) as transactions,
@@ -70,8 +125,9 @@ WHERE store_location = 'Lower Manhattan'
 GROUP BY weather_condition, temp_category
 ORDER BY revenue DESC
 ```
+
 ```sql revenue_by_weather_A
-SELECT 
+SELECT
     weather_condition,
     temp_category,
     COUNT(*) as transactions,
@@ -82,8 +138,9 @@ WHERE store_location = 'Astoria'
 GROUP BY weather_condition, temp_category
 ORDER BY revenue DESC
 ```
+
 ```sql revenue_by_weather_HK
-SELECT 
+SELECT
     weather_condition,
     temp_category,
     COUNT(*) as transactions,
@@ -94,8 +151,9 @@ WHERE store_location NOT IN ('Lower Manhattan', 'Astoria')
 GROUP BY weather_condition, temp_category
 ORDER BY revenue DESC
 ```
+
 ```sql category_by_weather
-SELECT 
+SELECT
     weather_condition,
     product_category,
     SUM(transaction_qty * unit_price) as revenue
@@ -103,8 +161,9 @@ FROM supabase.sales_weather_joined
 GROUP BY weather_condition, product_category
 ORDER BY weather_condition, revenue DESC
 ```
+
 ```sql category_by_weather_LM
-SELECT 
+SELECT
     weather_condition,
     product_category,
     SUM(transaction_qty * unit_price) as revenue
@@ -113,8 +172,9 @@ WHERE store_location = 'Lower Manhattan'
 GROUP BY weather_condition, product_category
 ORDER BY weather_condition, revenue DESC
 ```
+
 ```sql category_by_weather_A
-SELECT 
+SELECT
     weather_condition,
     product_category,
     SUM(transaction_qty * unit_price) as revenue
@@ -123,8 +183,9 @@ WHERE store_location = 'Astoria'
 GROUP BY weather_condition, product_category
 ORDER BY weather_condition, revenue DESC
 ```
+
 ```sql category_by_weather_HK
-SELECT 
+SELECT
     weather_condition,
     product_category,
     SUM(transaction_qty * unit_price) as revenue
@@ -133,8 +194,9 @@ WHERE store_location NOT IN ('Lower Manhattan', 'Astoria')
 GROUP BY weather_condition, product_category
 ORDER BY weather_condition, revenue DESC
 ```
+
 ```sql days_per_temp
-SELECT 
+SELECT
     temp_category,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -143,8 +205,9 @@ FROM supabase.sales_weather_joined
 GROUP BY temp_category
 ORDER BY days DESC
 ```
+
 ```sql days_per_temp_LM
-SELECT 
+SELECT
     temp_category,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -154,8 +217,9 @@ WHERE store_location = 'Lower Manhattan'
 GROUP BY temp_category
 ORDER BY days DESC
 ```
+
 ```sql days_per_temp_A
-SELECT 
+SELECT
     temp_category,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -165,8 +229,9 @@ WHERE store_location = 'Astoria'
 GROUP BY temp_category
 ORDER BY days DESC
 ```
+
 ```sql days_per_temp_HK
-SELECT 
+SELECT
     temp_category,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -176,8 +241,9 @@ WHERE store_location NOT IN ('Lower Manhattan', 'Astoria')
 GROUP BY temp_category
 ORDER BY days DESC
 ```
+
 ```sql days_per_weather
-SELECT 
+SELECT
     weather_condition,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -186,8 +252,9 @@ FROM supabase.sales_weather_joined
 GROUP BY weather_condition
 ORDER BY days DESC
 ```
+
 ```sql days_per_weather_LM
-SELECT 
+SELECT
     weather_condition,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -197,8 +264,9 @@ WHERE store_location = 'Lower Manhattan'
 GROUP BY weather_condition
 ORDER BY days DESC
 ```
+
 ```sql days_per_weather_A
-SELECT 
+SELECT
     weather_condition,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -208,8 +276,9 @@ WHERE store_location = 'Astoria'
 GROUP BY weather_condition
 ORDER BY days DESC
 ```
+
 ```sql days_per_weather_HK
-SELECT 
+SELECT
     weather_condition,
     COUNT(DISTINCT transaction_date) as days,
     SUM(transaction_qty * unit_price) as revenue,
@@ -227,7 +296,7 @@ ORDER BY days DESC
             <Tab label="Avg revenue per day">
                 <Tabs>
                     <Tab label="All stores">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp}
                             x=temp_category
                             y=revenue_per_day
@@ -238,7 +307,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Lower Manhattan">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_LM}
                             x=temp_category
                             y=revenue_per_day
@@ -249,7 +318,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Astoria">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_A}
                             x=temp_category
                             y=revenue_per_day
@@ -260,7 +329,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Hell's Kitchen">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_HK}
                             x=temp_category
                             y=revenue_per_day
@@ -275,7 +344,7 @@ ORDER BY days DESC
             <Tab label="Total revenue">
                 <Tabs>
                     <Tab label="All stores">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp}
                             x=temp_category
                             y=revenue
@@ -286,7 +355,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Lower Manhattan">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_LM}
                             x=temp_category
                             y=revenue
@@ -297,7 +366,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Astoria">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_A}
                             x=temp_category
                             y=revenue
@@ -308,7 +377,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Hell's Kitchen">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_HK}
                             x=temp_category
                             y=revenue
@@ -323,7 +392,7 @@ ORDER BY days DESC
             <Tab label="Days per category">
                 <Tabs>
                     <Tab label="All stores">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp}
                             x=temp_category
                             y=days
@@ -334,7 +403,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Lower Manhattan">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_LM}
                             x=temp_category
                             y=days
@@ -345,7 +414,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Astoria">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_A}
                             x=temp_category
                             y=days
@@ -356,7 +425,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Hell's Kitchen">
-                        <BarChart 
+                        <BarChart
                             data={days_per_temp_HK}
                             x=temp_category
                             y=days
@@ -377,7 +446,7 @@ ORDER BY days DESC
             <Tab label="Avg revenue per day">
                 <Tabs>
                     <Tab label="All stores">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather}
                             x=weather_condition
                             y=revenue_per_day
@@ -388,7 +457,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Lower Manhattan">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_LM}
                             x=weather_condition
                             y=revenue_per_day
@@ -399,7 +468,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Astoria">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_A}
                             x=weather_condition
                             y=revenue_per_day
@@ -410,7 +479,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Hell's Kitchen">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_HK}
                             x=weather_condition
                             y=revenue_per_day
@@ -425,7 +494,7 @@ ORDER BY days DESC
             <Tab label="Total revenue">
                 <Tabs>
                     <Tab label="All stores">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather}
                             x=weather_condition
                             y=revenue
@@ -436,7 +505,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Lower Manhattan">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_LM}
                             x=weather_condition
                             y=revenue
@@ -447,7 +516,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Astoria">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_A}
                             x=weather_condition
                             y=revenue
@@ -458,7 +527,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Hell's Kitchen">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_HK}
                             x=weather_condition
                             y=revenue
@@ -473,7 +542,7 @@ ORDER BY days DESC
             <Tab label="Days per condition">
                 <Tabs>
                     <Tab label="All stores">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather}
                             x=weather_condition
                             y=days
@@ -484,7 +553,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Lower Manhattan">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_LM}
                             x=weather_condition
                             y=days
@@ -495,7 +564,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Astoria">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_A}
                             x=weather_condition
                             y=days
@@ -506,7 +575,7 @@ ORDER BY days DESC
                         />
                     </Tab>
                     <Tab label="Hell's Kitchen">
-                        <BarChart 
+                        <BarChart
                             data={days_per_weather_HK}
                             x=weather_condition
                             y=days
@@ -525,7 +594,7 @@ ORDER BY days DESC
 
         <Tabs>
             <Tab label="All stores">
-                <BarChart 
+                <BarChart
                     data={revenue_by_weather}
                     x=weather_condition
                     y=revenue
@@ -540,7 +609,7 @@ ORDER BY days DESC
                 />
             </Tab>
             <Tab label="Lower Manhattan">
-                <BarChart 
+                <BarChart
                     data={revenue_by_weather_LM}
                     x=weather_condition
                     y=revenue
@@ -555,7 +624,7 @@ ORDER BY days DESC
                 />
             </Tab>
             <Tab label="Astoria">
-                <BarChart 
+                <BarChart
                     data={revenue_by_weather_A}
                     x=weather_condition
                     y=revenue
@@ -570,7 +639,7 @@ ORDER BY days DESC
                 />
             </Tab>
             <Tab label="Hell's Kitchen">
-                <BarChart 
+                <BarChart
                     data={revenue_by_weather_HK}
                     x=weather_condition
                     y=revenue
@@ -587,11 +656,12 @@ ORDER BY days DESC
         </Tabs>
 
     </Tab>
+
     <Tab label="Product category by weather">
 
         <Tabs>
             <Tab label="All stores">
-                <BarChart 
+                <BarChart
                     data={category_by_weather}
                     x=weather_condition
                     y=revenue
@@ -602,7 +672,7 @@ ORDER BY days DESC
                 />
             </Tab>
             <Tab label="Lower Manhattan">
-                <BarChart 
+                <BarChart
                     data={category_by_weather_LM}
                     x=weather_condition
                     y=revenue
@@ -613,7 +683,7 @@ ORDER BY days DESC
                 />
             </Tab>
             <Tab label="Astoria">
-                <BarChart 
+                <BarChart
                     data={category_by_weather_A}
                     x=weather_condition
                     y=revenue
@@ -624,7 +694,7 @@ ORDER BY days DESC
                 />
             </Tab>
             <Tab label="Hell's Kitchen">
-                <BarChart 
+                <BarChart
                     data={category_by_weather_HK}
                     x=weather_condition
                     y=revenue
@@ -637,6 +707,7 @@ ORDER BY days DESC
         </Tabs>
 
     </Tab>
+
 </Tabs>
 
 <DataTable data={revenue_by_weather} title="Full breakdown — all stores"/>
