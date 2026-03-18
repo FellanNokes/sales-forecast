@@ -1,0 +1,22 @@
+SELECT
+    transaction_id,
+    transaction_date,
+    CAST(transaction_time AS VARCHAR) as transaction_time,
+    transaction_qty,
+    store_id,
+    store_location,
+    product_id,
+    CAST(unit_price AS DECIMAL) as unit_price,
+    product_category,
+    product_type,
+    product_detail,
+    weather_code,
+    CAST(temperature_mean AS DECIMAL) as temperature_mean,
+    CAST(temperature_min AS DECIMAL) as temperature_min,
+    CAST(temperature_max AS DECIMAL) as temperature_max,
+    CAST(rain_sum AS DECIMAL) as rain_sum,
+    CAST(snowfall_sum AS DECIMAL) as snowfall_sum,
+    CAST(wind_speed_max AS DECIMAL) as wind_speed_max,
+    temp_category,
+    weather_condition
+FROM sales_weather_joined
