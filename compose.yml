@@ -38,6 +38,7 @@ services:
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - supabase-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   evidence:
     image: node:20-alpine
@@ -68,6 +69,7 @@ services:
       - kafka
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: ${DB_URL}
     env_file:
       - .env
 

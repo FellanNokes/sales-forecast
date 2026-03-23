@@ -1,11 +1,15 @@
 import json
+import os
 import time
 from datetime import datetime
 
 import requests
+from dotenv import load_dotenv
 from kafka import KafkaProducer
 
-KAFKA_BROKER = "localhost:9092"
+load_dotenv()
+
+KAFKA_BROKER = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
 TOPIC = "weather-forecast"
 
 STORE_COORDINATES = {
@@ -25,6 +29,22 @@ DAILY_WEATHER = [
 ]
 
 
+def create_producer(retries=10, delay=5):
+    for attempt in range(retries):
+        try:
+            producer = KafkaProducer(
+                bootstrap_servers=KAFKA_BROKER,
+                value_serializer=lambda v: json.dumps(v).encode("utf-8"),
+            )
+            print(f"Ansluten till Kafka på {KAFKA_BROKER}")
+            return producer
+        except Exception as e:
+            print(f"Försök {attempt + 1}/{retries} misslyckades: {e}")
+            print(f"Väntar {delay}s innan nästa försök...")
+            time.sleep(delay)
+    raise Exception("Kunde inte ansluta till Kafka efter flera försök")
+
+
 def fetch_forecast() -> list[dict]:
     locations = list(STORE_COORDINATES.keys())
     latitudes = [STORE_COORDINATES[loc][0] for loc in locations]
@@ -37,7 +57,7 @@ def fetch_forecast() -> list[dict]:
             "longitude": longitudes,
             "daily": DAILY_WEATHER,
             "timezone": "America/New_York",
-            "forecast_days": 7,
+            "forecast_days": 14,
         },
     )
     response.raise_for_status()
@@ -71,26 +91,26 @@ def fetch_forecast() -> list[dict]:
 
 
 def main():
-    producer = KafkaProducer(
-        bootstrap_servers=KAFKA_BROKER,
-        value_serializer=lambda v: json.dumps(v).encode("utf-8"),
-    )
+    producer = create_producer()
 
-    print(f"Ansluten till Kafka på {KAFKA_BROKER}")
     print(f"Skickar till topic: {TOPIC}")
 
     while True:
         print(f"\n[{datetime.now()}] Hämtar forecast...")
-        messages = fetch_forecast()
+        try:
+            messages = fetch_forecast()
 
-        for msg in messages:
-            producer.send(TOPIC, value=msg)
-            print(f"  Skickade: {msg['store_location']} - {msg['date']}")
+            for msg in messages:
+                producer.send(TOPIC, value=msg)
+                print(f"  Skickade: {msg['store_location']} - {msg['date']}")
 
-        producer.flush()
-        print(f"Skickade {len(messages)} meddelanden till Kafka!")
-        print("Väntar 1 timme innan nästa hämtning...")
-        time.sleep(3600)
+            producer.flush()
+            print(f"Skickade {len(messages)} meddelanden till Kafka!")
+        except Exception as e:
+            print(f"Fel vid hämtning/sändning: {e}")
+
+        print("Väntar 5 minuter innan nästa hämtning...")
+        time.sleep(300)
 
 
 if __name__ == "__main__":
