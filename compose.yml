@@ -1,51 +1,77 @@
 services:
   kafka:
-    image: apache/kafka:4.0.0
+    image: confluentinc/cp-kafka:7.5.0
     container_name: kafka
     ports:
-      - "29092:29092"
-    volumes:
-      - kafka_data:/var/lib/kafka/data # rätt path för apache/kafka
+      - "9092:9092"
     environment:
-      KAFKA_NODE_ID: "1"
-      KAFKA_PROCESS_ROLES: "broker,controller"
-      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
-      KAFKA_LISTENERS: "PLAINTEXT://:9092,EXTERNAL://:29092,CONTROLLER://:9093"
-      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092,EXTERNAL://localhost:29092"
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT"
-      KAFKA_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
-      KAFKA_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
+    depends_on:
+      - kafka
     ports:
       - "8080:8080"
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+
+  supabase-db:
+    image: postgres:15
+    container_name: supabase-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - supabase-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  evidence:
+    image: node:20-alpine
+    container_name: evidence
+    ports:
+      - "3000:3000"
+    depends_on:
+      - supabase-db
+    volumes:
+      - ./dashboard:/evidence-workspace
+    working_dir: /evidence-workspace
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+
+  producer:
+    build: ./kafka/weather-forecast/producer
+    container_name: producer
     depends_on:
       - kafka
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    env_file:
+      - .env
 
   consumer:
-    build: .
-    env_file:
-      - .env
+    build: ./kafka/weather-forecast/consumer
+    container_name: consumer
     depends_on:
       - kafka
-    command: ["uv", "run", "python", "-u", "app/consumer/print.py"]
-
-  app:
-    build: .
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: ${DB_URL}
     env_file:
       - .env
-    depends_on:
-      - kafka
-    ports:
-      - "8000:8000"
 
 volumes:
-  kafka_data:
+  supabase-data:
