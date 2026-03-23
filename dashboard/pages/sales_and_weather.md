@@ -1,3 +1,9 @@
+```sql correlation
+SELECT * FROM
+supabase.weather_correlation_results
+WHERE id IN (56, 57)
+```
+
 ```sql weather_sales
 SELECT * FROM supabase.weather_sales_summary
 ```
@@ -37,6 +43,16 @@ LIMIT 1
 ```
 
 # Weather vs Temperature Analysis
+
+---
+
+## Correlation vs Sales And Weather
+
+<BarChart
+data={correlation}
+x=metric
+y=correlation_value
+/>
 
 ---
 
