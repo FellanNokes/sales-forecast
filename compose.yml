@@ -15,12 +15,19 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_LOG_DIRS: /var/lib/kafka/data
       CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+    healthcheck:
+      test: ["CMD", "kafka-broker-api-versions", "--bootstrap-server", "localhost:9092"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
@@ -56,7 +63,8 @@ services:
     build: ./kafka/weather-forecast/producer
     container_name: producer
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     env_file:
@@ -66,7 +74,31 @@ services:
     build: ./kafka/weather-forecast/consumer
     container_name: consumer
     depends_on:
-      - kafka
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: ${DB_URL}
+    env_file:
+      - .env
+
+  sales-producer:
+    build: ./kafka/sales-forecast/producer
+    container_name: sales-producer
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    env_file:
+      - .env
+
+  sales-consumer:
+    build: ./kafka/sales-forecast/consumer
+    container_name: sales-consumer
+    depends_on:
+      kafka:
+        condition: service_healthy
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       DB_URL: ${DB_URL}
