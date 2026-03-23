@@ -1,0 +1,7 @@
+kafka-python-ng==2.2.3
+numpy
+pandas
+python-dotenv
+requests
+supabase
+psycopg[binary]
