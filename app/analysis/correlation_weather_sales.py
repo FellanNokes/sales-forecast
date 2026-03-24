@@ -13,6 +13,8 @@ def fetch_data() -> pd.DataFrame:
 # aggregate 
 
 def aggregate_daily(df: pd.DataFrame) -> pd.DataFrame:
+
+    
     daily = (
         df.groupby([
             "transaction_date",
