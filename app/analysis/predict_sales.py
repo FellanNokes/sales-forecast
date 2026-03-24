@@ -162,6 +162,7 @@ def predict_and_upload(model, forecast_df: pd.DataFrame) -> None:
         "temperature_mean",
         "weather_condition",
         "temp_category",
+        "day_of_week",
     ]].rename(columns={"date": "prediction_date"})
 
     result["model_version"] = "linear_v1" # <- save which version of the model is being used
