@@ -122,15 +122,19 @@ def load_forecast() -> pd.DataFrame:
 # STEP 4 — Create prediction and save
 
 def predict_and_upload(model, forecast_df: pd.DataFrame) -> None:
-    """Kör prediction och laddar upp till sales_prediction."""
+    """Run prediction and upload to sales_prediction table in Supabase."""
 
     numeric_features = ["temperature_mean", "rain_sum"]
     categorical_features = ["weather_condition", "temp_category"]
 
     X_future = forecast_df[numeric_features + categorical_features]
+    # Collects the weather features used for the model
     forecast_df["predicted_revenue"] = model.predict(X_future).clip(min=0)
+    # model.predict(X_future) is wher ethe model is actually used. 
+    # clip(min=0) ensures predictions are never negative.
+    # A linear model can mathematically produce negative values but negative revenue is not possible
 
-    # Bygg upp output-df med rätt kolumner
+    # Choose columns to save to Supabase and update column name to match
     result = forecast_df[[
         "date",
         "store_location",
@@ -140,13 +144,14 @@ def predict_and_upload(model, forecast_df: pd.DataFrame) -> None:
         "temp_category",
     ]].rename(columns={"date": "prediction_date"})
 
-    result["model_version"] = "linear_v1"
+
+    result["model_version"] = "linear_v1" # <- save which version of the model is being used
     result["predicted_revenue"] = result["predicted_revenue"].round(2)
     result["prediction_date"] = result["prediction_date"].astype(str)
 
-    print(f"\nPrediktioner:")
+    print(f"\nPrediction:")
     print(result[["prediction_date", "store_location", "predicted_revenue",
                   "temp_category"]].to_string(index=False))
 
     upload_dataframe(result, "sales_prediction")
-    print(f"\nKlart. {len(result)} prediktioner uppladdade till 'sales_prediction'.")
+    print(f"\nDone. {len(result)} predictions uploaded to 'sales_prediction'.")
