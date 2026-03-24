@@ -50,6 +50,11 @@ def load_training_data() -> pd.DataFrame:
     daily["temperature_mean"] = pd.to_numeric(daily["temperature_mean"], errors="coerce")
     daily["rain_sum"] = pd.to_numeric(daily["rain_sum"], errors="coerce")
 
+    # Add day of week and month as features
+    daily["transaction_date"] = pd.to_datetime(daily["transaction_date"])
+    daily["day_of_week"] = daily["transaction_date"].dt.dayofweek  # 0=Monday, 6=Sunday
+    daily["month"] = daily["transaction_date"].dt.month
+
     print("Dropping nulls...") 
     result = daily.dropna(subset=["total_revenue", "temperature_mean"])
 
@@ -67,7 +72,7 @@ def train_model(df: pd.DataFrame):
     print("Training model...")
 
     # Numeric + categorical features
-    numeric_features = ["temperature_mean", "rain_sum"]
+    numeric_features = ["temperature_mean", "rain_sum", "day_of_week", "month"]
     categorical_features = ["weather_condition", "temp_category"]
 
     # OneHotEncoder = transforms categorical feat to binary columns so the model can use them
@@ -135,7 +140,11 @@ def load_forecast() -> pd.DataFrame:
 def predict_and_upload(model, forecast_df: pd.DataFrame) -> None:
     """Run prediction and upload to sales_prediction table in Supabase."""
 
-    numeric_features = ["temperature_mean", "rain_sum"]
+    forecast_df["transaction_date"] = pd.to_datetime(forecast_df["date"])
+    forecast_df["day_of_week"] = forecast_df["transaction_date"].dt.dayofweek
+    forecast_df["month"] = forecast_df["transaction_date"].dt.month
+
+    numeric_features = ["temperature_mean", "rain_sum", "day_of_week", "month"]
     categorical_features = ["weather_condition", "temp_category"]
 
     X_future = forecast_df[numeric_features + categorical_features]
@@ -170,7 +179,7 @@ def predict_and_upload(model, forecast_df: pd.DataFrame) -> None:
     client.table("sales_prediction").delete().neq("id", 0).execute()
 
     upload_dataframe(result, "sales_prediction")
-    
+
     print(f"\nDone. {len(result)} predictions uploaded to 'sales_prediction'.")
 
 
