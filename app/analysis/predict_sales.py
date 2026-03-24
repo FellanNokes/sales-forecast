@@ -78,3 +78,27 @@ def train_model(df: pd.DataFrame):
     print(f"  R² score: {score:.3f} (förklarar {score*100:.1f}% av variationen)")
 
     return model
+
+
+# STEP 3 — Get weather forecast
+
+def load_forecast() -> pd.DataFrame:
+    """Hämtar 14-dagars väderprognos från Supabase och lägger till features."""
+    print("Hämtar väderprognos från weather_forecast...")
+    df = fetch_table("weather_forecast")
+
+    # Lägg till samma kategorier som träningsdata
+    from app.weather.weather_features import categorize_temperature, WEATHER_CODE_MAP
+    df["temperature_mean"] = pd.to_numeric(df["temperature_mean"], errors="coerce")
+    df["rain_sum"] = pd.to_numeric(df["rain_sum"], errors="coerce").fillna(0)
+    df["temp_category"] = df["temperature_mean"].apply(categorize_temperature)
+    df["weather_condition"] = df["weather_code"].map(WEATHER_CODE_MAP).fillna("cloudy")
+
+    # Normalisera store_location (ta bort ", United States" suffix om det finns)
+    df["store_location"] = (
+        df["store_location"]
+        .str.replace(r",\s*(New York,\s*)?United States$", "", regex=True)
+        .str.strip()
+    )
+
+    return df
