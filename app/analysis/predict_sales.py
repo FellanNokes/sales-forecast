@@ -20,12 +20,18 @@ from app.utility.supabase_functions import fetch_table, upload_dataframe
 def load_training_data() -> pd.DataFrame:
     """Get historic data and aggregate to dailt revenue per store."""
     print("Getting training datat from sales_weather_joined...")
+    print("Connecting to Supabase...")
     df = fetch_table("sales_weather_joined")
+    print(f"Fetched {len(df)} rows.")
 
+
+    print("Calculating revenue...")
     df["revenue"] = pd.to_numeric(df["unit_price"], errors="coerce") * \
                     pd.to_numeric(df["transaction_qty"], errors="coerce")
 
 
+    print("Aggregating daily revenue...") 
+    # Group transaktions per dag and location 
     daily = (
         df.groupby([
             "transaction_date",
@@ -36,14 +42,19 @@ def load_training_data() -> pd.DataFrame:
             "weather_condition",
         ])
         .agg(total_revenue=("revenue", "sum"))
-        .reset_index() # <- Groups transaktions per dag and location 
+        .reset_index()
     )
+    print(f"Aggregated to {len(daily)} daily rows.")
 
+    print("Converting to numeric...") 
     daily["temperature_mean"] = pd.to_numeric(daily["temperature_mean"], errors="coerce")
     daily["rain_sum"] = pd.to_numeric(daily["rain_sum"], errors="coerce")
 
-    return daily.dropna(subset=["total_revenue", "temperature_mean"])
+    print("Dropping nulls...") 
+    result = daily.dropna(subset=["total_revenue", "temperature_mean"])
 
+    print(f"Final training rows: {len(result)}")
+    return result
 
 # STEP 2 — Train model
 
@@ -144,14 +155,29 @@ def predict_and_upload(model, forecast_df: pd.DataFrame) -> None:
         "temp_category",
     ]].rename(columns={"date": "prediction_date"})
 
-
     result["model_version"] = "linear_v1" # <- save which version of the model is being used
-    result["predicted_revenue"] = result["predicted_revenue"].round(2)
+    result["predicted_revenue"] = result["predicted_revenue"].round()
     result["prediction_date"] = result["prediction_date"].astype(str)
 
     print(f"\nPrediction:")
     print(result[["prediction_date", "store_location", "predicted_revenue",
                   "temp_category"]].to_string(index=False))
+    
+    # Delete existing predictions before uploading new ones
+    from app.utility.supabase_functions import _get_client
+
+    client = _get_client()
+    client.table("sales_prediction").delete().neq("id", 0).execute()
 
     upload_dataframe(result, "sales_prediction")
+    
     print(f"\nDone. {len(result)} predictions uploaded to 'sales_prediction'.")
+
+
+if __name__ == "__main__":
+    print("Script started")
+    training_data = load_training_data()
+    print(f"Training data: {len(training_data)} daily rows\n")
+    model = train_model(training_data)
+    forecast = load_forecast()
+    predict_and_upload(model, forecast)
