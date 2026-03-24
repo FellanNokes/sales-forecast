@@ -1,18 +1,7 @@
-"""
-sales_processor.py
-
-Consumes trigger messages from Kafka topic "sales-process".
-On each trigger:
-  1. Fetches unprocessed rows from staging.raw_sales
-  2. Runs process_sales_data.py cleaning + validation logic
-  3. Inserts accepted rows into curated.sales
-  4. Inserts rejected rows into staging.rejected_sales
-"""
-
 import json
 import os
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 
 import pandas as pd
 import psycopg
@@ -21,19 +10,15 @@ from kafka import KafkaConsumer
 
 load_dotenv()
 
-KAFKA_BROKER  = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
-TOPIC         = "sales-process"
-GROUP_ID      = "sales-process-consumer"
-DB_URL        = os.getenv("DB_URL")
+KAFKA_BROKER = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
+TOPIC        = "sales-process"
+GROUP_ID     = "sales-process-consumer"
+DB_URL       = os.getenv("DB_URL")
 
 import sys
 sys.path.insert(0, "/app")
 from app.sales.process_sales_data import process_sales
 
-
-# ---------------------------------------------------------------------------
-# Kafka
-# ---------------------------------------------------------------------------
 
 def create_consumer(retries=10, delay=5):
     for attempt in range(retries):
@@ -53,40 +38,28 @@ def create_consumer(retries=10, delay=5):
     raise Exception("Kunde inte ansluta till Kafka")
 
 
-# ---------------------------------------------------------------------------
-# Database
-# ---------------------------------------------------------------------------
-
 def get_db_connection():
-    return psycopg.connect(DB_URL)
+    return psycopg.connect(DB_URL, autocommit=False)
 
 
 def fetch_unprocessed(conn) -> pd.DataFrame:
-    """Fetch rows from staging.raw_sales that haven't been processed yet."""
     with conn.cursor() as cur:
-        cur.execute(
-            """
-            SELECT * FROM staging.raw_sales
-            WHERE processed_at IS NULL
-            """
-        )
+        cur.execute("SELECT * FROM staging.raw_sales WHERE processed_at IS NULL")
         cols = [desc[0] for desc in cur.description]
         rows = cur.fetchall()
     return pd.DataFrame(rows, columns=cols)
 
 
 def mark_as_processed(conn, ids: list):
-    """Mark rows in staging.raw_sales as processed."""
     with conn.cursor() as cur:
         cur.execute(
             "UPDATE staging.raw_sales SET processed_at = %s WHERE id = ANY(%s)",
-            (datetime.utcnow().isoformat(), ids)
+            (datetime.now(timezone.utc).isoformat(), ids)
         )
     conn.commit()
 
 
 def insert_accepted(conn, df: pd.DataFrame):
-    """Insert cleaned rows into curated.sales."""
     if df.empty:
         return
     with conn.cursor() as cur:
@@ -114,7 +87,7 @@ def insert_accepted(conn, df: pd.DataFrame):
                 row.get("product_type"),
                 row.get("product_detail"),
                 row.get("is_synthetic"),
-                datetime.utcnow().isoformat(),
+                datetime.now(timezone.utc).isoformat(),
             ) for row in df.to_dict(orient="records")]
         )
     conn.commit()
@@ -122,7 +95,6 @@ def insert_accepted(conn, df: pd.DataFrame):
 
 
 def insert_rejected(conn, df: pd.DataFrame):
-    """Insert rejected rows into staging.rejected_sales."""
     if df.empty:
         return
     with conn.cursor() as cur:
@@ -151,16 +123,12 @@ def insert_rejected(conn, df: pd.DataFrame):
                 row.get("product_detail"),
                 row.get("is_synthetic"),
                 row.get("reason"),
-                datetime.utcnow().isoformat(),
+                datetime.now(timezone.utc).isoformat(),
             ) for row in df.to_dict(orient="records")]
         )
     conn.commit()
     print(f"Inserted {len(df)} rows into staging.rejected_sales")
 
-
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
 
 def main():
     print(f"Ansluter till Kafka på {KAFKA_BROKER}...")
@@ -190,6 +158,7 @@ def main():
         except Exception as e:
             print(f"Fel vid bearbetning: {e}")
             conn.rollback()
+            conn = get_db_connection()  # återskapa anslutningen vid fel
 
 
 if __name__ == "__main__":

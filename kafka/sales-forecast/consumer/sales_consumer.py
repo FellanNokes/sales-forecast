@@ -1,35 +1,25 @@
-"""
-sales_consumer.py
-
-Consumes raw sales messages from Kafka topic "sales-raw".
-- Batch-inserts into staging.raw_sales in Supabase
-- For each batch, publishes a trigger message to "sales-process" topic
-  so sales_processor.py knows new data is ready to clean
-"""
-
 import json
 import os
 import time
-from datetime import datetime
-
+from datetime import datetime, timezone
+ 
 import psycopg
 from dotenv import load_dotenv
 from kafka import KafkaConsumer, KafkaProducer
-
+ 
 load_dotenv()
-
-KAFKA_BROKER   = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
-CONSUME_TOPIC  = "sales-raw"
-PRODUCE_TOPIC  = "sales-process"
-GROUP_ID       = "sales-raw-consumer"
-DB_URL         = os.getenv("DB_URL")
-BATCH_SIZE     = 100
-
-
-# ---------------------------------------------------------------------------
-# Kafka
-# ---------------------------------------------------------------------------
-
+ 
+KAFKA_BROKER  = os.getenv("KAFKA_BOOTSTRAP_SERVERS", "localhost:9092")
+CONSUME_TOPIC = "sales-raw"
+PRODUCE_TOPIC = "sales-process"
+GROUP_ID      = "sales-raw-consumer"
+DB_URL        = os.getenv("DB_URL")
+BATCH_SIZE    = 100
+ 
+BIGINT_MIN = -9223372036854775808
+BIGINT_MAX =  9223372036854775807
+ 
+ 
 def create_consumer(retries=10, delay=5):
     for attempt in range(retries):
         try:
@@ -46,8 +36,8 @@ def create_consumer(retries=10, delay=5):
             print(f"Försök {attempt + 1}/{retries} misslyckades: {e}")
             time.sleep(delay)
     raise Exception("Kunde inte ansluta till Kafka")
-
-
+ 
+ 
 def create_producer(retries=10, delay=5):
     for attempt in range(retries):
         try:
@@ -61,16 +51,26 @@ def create_producer(retries=10, delay=5):
             print(f"Försök {attempt + 1}/{retries} misslyckades: {e}")
             time.sleep(delay)
     raise Exception("Kunde inte ansluta till Kafka")
-
-
-# ---------------------------------------------------------------------------
-# Database
-# ---------------------------------------------------------------------------
-
+ 
+ 
 def get_db_connection():
-    return psycopg.connect(DB_URL)
-
-
+    return psycopg.connect(DB_URL, autocommit=False)
+ 
+ 
+def _safe_transaction_id(tid):
+    """Returns tid if valid bigint, else None (will be caught by process_sales as missing)."""
+    if tid is None:
+        return None
+    try:
+        tid = int(tid)
+        if BIGINT_MIN <= tid <= BIGINT_MAX:
+            return tid
+        print(f"transaction_id utanför bigint-intervall, sätts till None: {tid}")
+        return None
+    except (TypeError, ValueError):
+        return None
+ 
+ 
 def insert_raw_batch(conn, batch: list[dict]):
     """Insert a batch of raw rows into staging.raw_sales."""
     with conn.cursor() as cur:
@@ -86,7 +86,7 @@ def insert_raw_batch(conn, batch: list[dict]):
             ON CONFLICT DO NOTHING
             """,
             [(
-                d.get("transaction_id"),
+                _safe_transaction_id(d.get("transaction_id")),
                 d.get("transaction_date"),
                 d.get("transaction_time"),
                 d.get("transaction_qty"),
@@ -98,46 +98,45 @@ def insert_raw_batch(conn, batch: list[dict]):
                 d.get("product_type"),
                 d.get("product_detail"),
                 d.get("is_synthetic"),
-                datetime.utcnow().isoformat(),
+                datetime.now(timezone.utc).isoformat(),
             ) for d in batch]
         )
     conn.commit()
-
-
-# ---------------------------------------------------------------------------
-# Main
-# ---------------------------------------------------------------------------
-
+ 
+ 
 def main():
     print(f"Ansluter till Kafka på {KAFKA_BROKER}...")
     consumer = create_consumer()
     producer = create_producer()
-
+ 
     print("Ansluter till databasen...")
     conn = get_db_connection()
     print("Allt klart! Lyssnar på 'sales-raw'...")
-
+ 
     batch = []
-
+ 
     for message in consumer:
         batch.append(message.value)
-
+ 
         if len(batch) >= BATCH_SIZE:
             try:
                 insert_raw_batch(conn, batch)
                 print(f"[{datetime.now()}] Sparade {len(batch)} rådata-rader till staging.raw_sales")
-
-                # Trigger processor
-                producer.send(PRODUCE_TOPIC, value={"batch_size": len(batch), "triggered_at": datetime.utcnow().isoformat()})
+ 
+                producer.send(PRODUCE_TOPIC, value={
+                    "batch_size": len(batch),
+                    "triggered_at": datetime.now(timezone.utc).isoformat(),
+                })
                 producer.flush()
                 print(f"Skickade trigger till '{PRODUCE_TOPIC}'")
-
-                batch = []
+ 
             except Exception as e:
                 print(f"Fel vid sparande: {e}")
                 conn.rollback()
-                batch = []
-
-
+                conn = get_db_connection()  # återskapa anslutningen vid fel
+ 
+            batch = []
+ 
+ 
 if __name__ == "__main__":
     main()
