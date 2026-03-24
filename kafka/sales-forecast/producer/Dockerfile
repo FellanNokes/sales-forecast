@@ -2,9 +2,9 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY kafka/sales-forecast/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY sales_producer.py .
+COPY . .
 
-CMD ["python", "-u", "sales_producer.py"]
+CMD ["python", "-u", "kafka/sales-forecast/producer/sales_producer.py"]
