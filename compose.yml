@@ -83,7 +83,9 @@ services:
       - .env
 
   sales-producer:
-    build: ./kafka/sales-forecast/producer
+    build:
+      context: .
+      dockerfile: kafka/sales-forecast/producer/Dockerfile
     container_name: sales-producer
     depends_on:
       kafka:
@@ -94,8 +96,24 @@ services:
       - .env
 
   sales-consumer:
-    build: ./kafka/sales-forecast/consumer
+    build:
+      context: .
+      dockerfile: kafka/sales-forecast/consumer/Dockerfile
     container_name: sales-consumer
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      DB_URL: ${DB_URL}
+    env_file:
+      - .env
+
+  sales-processor:
+    build:
+      context: .
+      dockerfile: kafka/sales-forecast/processor/Dockerfile
+    container_name: sales-processor
     depends_on:
       kafka:
         condition: service_healthy
