@@ -5,6 +5,6 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY sales_consumer.py .
+COPY . .
 
-CMD ["python", "-u", "sales_consumer.py"]
+CMD ["python", "-u", "kafka/sales-forecast/consumer/sales_consumer.py"]
