@@ -32,6 +32,89 @@ ORDER BY total_revenue DESC
 LIMIT 1
 ```
 
+```sql predictions
+SELECT
+    prediction_date,
+    store_location,
+    ROUND(predicted_revenue, 2) as predicted_revenue,
+    temperature_mean,
+    weather_condition,
+    temp_category,
+    CASE day_of_week
+        WHEN 0 THEN 'Monday'
+        WHEN 1 THEN 'Tuesday'
+        WHEN 2 THEN 'Wednesday'
+        WHEN 3 THEN 'Thursday'
+        WHEN 4 THEN 'Friday'
+        WHEN 5 THEN 'Saturday'
+        WHEN 6 THEN 'Sunday'
+    END as weekday,
+    day_of_week
+FROM supabase.sales_prediction
+ORDER BY prediction_date, store_location
+```
+
+```sql predictions_lm
+SELECT * FROM ${predictions}
+WHERE store_location = 'Lower Manhattan'
+```
+
+```sql predictions_hk
+SELECT * FROM ${predictions}
+WHERE store_location = 'Hell''s Kitchen'
+```
+
+```sql predictions_a
+SELECT * FROM ${predictions}
+WHERE store_location = 'Astoria'
+```
+
+## Predicted Revenue — Next 14 Days
+
+<Tabs>
+    <Tab label="All Stores">
+        <LineChart
+            data={predictions}
+            x=prediction_date
+            y=predicted_revenue
+            series=store_location
+            title="Predicted Revenue — All Stores"
+            yAxisTitle="Predicted Revenue ($)"
+            xAxisTitle="Date"
+        />
+    </Tab>
+    <Tab label="Lower Manhattan">
+        <LineChart
+            data={predictions_lm}
+            x=prediction_date
+            y=predicted_revenue
+            title="Predicted Revenue — Lower Manhattan"
+            yAxisTitle="Predicted Revenue ($)"
+            xAxisTitle="Date"
+        />
+    </Tab>
+    <Tab label="Hell's Kitchen">
+        <LineChart
+            data={predictions_hk}
+            x=prediction_date
+            y=predicted_revenue
+            title="Predicted Revenue — Hell's Kitchen"
+            yAxisTitle="Predicted Revenue ($)"
+            xAxisTitle="Date"
+        />
+    </Tab>
+    <Tab label="Astoria">
+        <LineChart
+            data={predictions_a}
+            x=prediction_date
+            y=predicted_revenue
+            title="Predicted Revenue — Astoria"
+            yAxisTitle="Predicted Revenue ($)"
+            xAxisTitle="Date"
+        />
+    </Tab>
+</Tabs>
+
 # Sales vs Mean Temperature
 
 <BigValue

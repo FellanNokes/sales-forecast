@@ -128,14 +128,14 @@ ORDER BY avg_predicted_revenue DESC
 ## Average Predicted Revenue by Day of Week
 
 <BarChart
-    data={by_weekday}
-    x=weekday
-    y=avg_predicted_revenue
-    title="Avg Predicted Revenue by Day of Week — All Stores"
-    yAxisTitle="Predicted Revenue ($)"
-    xAxisTitle="Day of Week"
-    colorPalette={['#378ADD']}
-    sort=false
+data={by_weekday}
+x=weekday
+y=avg_predicted_revenue
+title="Avg Predicted Revenue by Day of Week — All Stores"
+yAxisTitle="Predicted Revenue ($)"
+xAxisTitle="Day of Week"
+colorPalette={['#378ADD']}
+sort=false
 />
 
 ---
@@ -162,14 +162,14 @@ affects predicted revenue — e.g. a rainy Monday vs a clear Friday.
 ## Average Predicted Revenue by Weather Condition
 
 <BarChart
-    data={by_weather}
-    x=weather_condition
-    y=avg_predicted_revenue
-    title="Avg Predicted Revenue by Weather Condition"
-    yAxisTitle="Predicted Revenue ($)"
-    xAxisTitle="Weather Condition"
-    colorPalette={['#7F77DD']}
-    sort=false
+data={by_weather}
+x=weather_condition
+y=avg_predicted_revenue
+title="Avg Predicted Revenue by Weather Condition"
+yAxisTitle="Predicted Revenue ($)"
+xAxisTitle="Weather Condition"
+colorPalette={['#7F77DD']}
+sort=false
 />
 
 ---
@@ -180,3 +180,39 @@ affects predicted revenue — e.g. a rainy Monday vs a clear Friday.
     data={predictions}
     rows=14
 />
+
+```sql weather_forecast
+SELECT * FROM supabase.weather_forecast
+ORDER BY date
+```
+
+```sql sales_forecast
+SELECT
+    *
+FROM
+    supabase.daily_salesdata
+```
+
+# Forecast Weather And Sales
+
+---
+
+## Overview of Weather Forecast
+
+<DataTable data={weather_forecast}>
+<Column id=date/>
+<Column id=store_location/>
+<Column id=temperature_mean/>
+<Column id=temperature_max/>
+<Column id=temperature_min/>
+<Column id=rain_sum/>
+<Column id=snowfall_sum/>
+<Column id=wind_speed_10m_max/>
+<Column id=fetched_at title="Updated At"/>
+</DataTable>
+
+---
+
+## Overview Over Daily Sales Data
+
+<DataTable data={sales_forecast}/>

@@ -1,7 +1,6 @@
 ```sql correlation
 SELECT * FROM
 supabase.weather_correlation_results
-WHERE id IN (56, 57)
 ```
 
 ```sql weather_sales
