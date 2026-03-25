@@ -123,5 +123,23 @@ services:
     env_file:
       - .env
 
+  prediction-runner:
+    build: .
+    container_name: prediction-runner
+    env_file:
+      - .env
+    depends_on:
+      - consumer
+    command: >
+      sh -c "echo 'Waiting for weather data to be written to Supabase...' &&
+        sleep 120 &&
+        while true; do
+          uv run -m app.analysis.predict_sales;
+          echo 'Next prediction in 24h...';
+          sleep 86400;
+        done"
+
+
+
 volumes:
   supabase-data:
