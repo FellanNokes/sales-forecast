@@ -13,4 +13,4 @@ SELECT
     is_synthetic,
     generated_at
 FROM
-    sales_forecast
+    daily_salesdata
